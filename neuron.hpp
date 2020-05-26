@@ -1,0 +1,39 @@
+#ifndef CONNECT4_WITH_REINFORCEMENT_LEARNING_NEURON_HPP
+#define CONNECT4_WITH_REINFORCEMENT_LEARNING_NEURON_HPP
+#include <random>
+#include <vector>
+
+static std::random_device randomDevice; // use boost random?
+static std::mt19937 engine(randomDevice());
+
+
+class neuron{
+public:
+    neuron(int);
+    ~neuron();
+
+
+public:
+    
+    float value;
+    struct connection{
+        float weight;
+        int input;
+    };
+    std::vector<connection> connectionVec;
+
+    
+    void sigmoid();
+    
+private:
+
+    float bias = 0;
+
+
+    void activation();
+    // send value to connected neurons function?
+    
+};
+
+
+#endif //CONNECT4_WITH_REINFORCEMENT_LEARNING_NEURON_HPP
