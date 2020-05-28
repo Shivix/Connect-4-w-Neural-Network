@@ -20,9 +20,9 @@ public:
     }*/
     
 private:
-    std::vector<neuron*> hiddenLayer = {}; // TODO: improve scalability of adding layers // parameter in constructor for how many hidden layers after first.
-    std::vector<neuron*> hiddenLayer2 = {};
-    std::vector<neuron*> outputLayer = {};
+    std::vector<neuron> hiddenLayer = {}; // TODO: improve scalability of adding layers // parameter in constructor for how many hidden layers after first.
+    std::vector<neuron> hiddenLayer2 = {};
+    std::vector<neuron> outputLayer = {};
 
     int INPUTSIZE;
     void crossover(network);
