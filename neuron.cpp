@@ -13,10 +13,9 @@ neuron::neuron(int connections){
 
 neuron::~neuron()= default;
 
-void neuron::sigmoid(){ // runs when a neuron is fed from all previous neurons
+void neuron::sigmoid() { // runs when a neuron is fed from all previous neurons
 
-    value = value / (1 + std::abs(value));
-
+    value = value / (1 + (std::abs(value)));
 
 }
 
