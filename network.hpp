@@ -3,16 +3,17 @@
 
 #include "neuron.hpp"
 #include <vector>
+#include "board.hpp"
 
 class network{
 public:
-    network(int);
+    network();
     ~network();
 
     int fitness = 0;
     
     void drawNetwork();
-    float feedforward(std::vector<std::vector<int>>);
+    float feedforward(std::vector<std::vector<board::counter>>);
     
     /*bool operator > (const network & networkVar) const
     {
@@ -24,7 +25,7 @@ private:
     std::vector<neuron> hiddenLayer2 = {};
     std::vector<neuron> outputLayer = {};
 
-    int INPUTSIZE;
+    const static int INPUTSIZE = 42; // set to the amount of positions on a connect4 board
     void crossover(network);
     void fitnessTest();
     float highestOutput();

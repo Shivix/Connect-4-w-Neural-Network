@@ -19,8 +19,8 @@ void agent::playGame(network network, board gameBoard, bool isRed){
 
         // applymove function on feedforward output? LOOP WITH ABOVE UNTIL GAME OVER
 
-        while(!gameBoard.applyMove(netMove, isRed)){ //repeats if move is illegal //TODO: may loop forever if game is drawn
-            continue;
+        while(!gameBoard.applyMove(netMove, isRed)){ //repeats if move is illegal //TODO: may loop forever if game is drawn (use recursion?)
+            
         }
         gameBoard.evaluateBoard();
     }

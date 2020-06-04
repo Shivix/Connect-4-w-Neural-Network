@@ -7,19 +7,18 @@
 #define MUTATESPERLAYER 3
 
 
-network::network(int inputSize){
-    this->INPUTSIZE = inputSize; // inputSize saved to avoid magic numbers in other functions
+network::network(){
     
     hiddenLayer.reserve(NETSIZE);
     hiddenLayer2.reserve(NETSIZE);
     outputLayer.reserve(NETSIZE);
-    for(int i = 0; i < NETSIZE; ++i){
+    for(auto i = 0; i < NETSIZE; ++i){
         hiddenLayer.emplace_back(neuron(INPUTSIZE));
     }
-    for(int i = 0; i < NETSIZE; ++i){
+    for(auto i = 0; i < NETSIZE; ++i){
         hiddenLayer2.emplace_back(neuron(NETSIZE));
     }
-    for(int i = 0; i < NETSIZE; ++i){
+    for(auto i = 0; i < NETSIZE; ++i){
         outputLayer.emplace_back(neuron(NETSIZE));
     }
 }
@@ -44,7 +43,7 @@ void network::crossover(network mate){ // combine half of the neurons of one net
 
     std::uniform_int_distribution<int> netsizeDistribution(0, NETSIZE);
     int neuronToCrossover;
-    for(int i = 0; i < NETSIZE / 2; ++i){ // this will often copy over a neuron that has already been copied meaning the network that calls the function will have the dominant genome (temp)
+    for(auto i = 0; i < NETSIZE / 2; ++i){ // this will often copy over a neuron that has already been copied meaning the network that calls the function will have the dominant genome (temp)
         neuronToCrossover = netsizeDistribution(engine);
         this->hiddenLayer[neuronToCrossover] = mate.hiddenLayer[neuronToCrossover];
         neuronToCrossover = netsizeDistribution(engine);
@@ -55,19 +54,19 @@ void network::crossover(network mate){ // combine half of the neurons of one net
 }
 
 void network::drawNetwork(){ // gives visual feedback for test purposes.
-    for(auto &&i: hiddenLayer){
+    for(auto i: hiddenLayer){
         for(auto j = 0; j < i.connectionVec.size(); ++j){
             std::cout << "Weight:" << i.connectionVec[j].weight << "from:" << j << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
-    for(auto &&i: hiddenLayer2){
+    for(auto i: hiddenLayer2){
         for(auto j = 0; j < i.connectionVec.size(); ++j){
             std::cout << "Weight:" << i.connectionVec[j].weight << "from:" << j << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
-    for(auto &&i: outputLayer){
+    for(auto i: outputLayer){
         for(auto j = 0; j < i.connectionVec.size(); ++j){
             std::cout << "Weight:" << i.connectionVec[j].weight << "from:" << j << "neuron\n";
         }
@@ -84,36 +83,36 @@ void network::fitnessTest(){ // does it need this when board has evaluation?
     
 }
 
-float network::feedforward(std::vector<std::vector<int>> boardVec){ // parameter is the input layer. TODO: make input layer declared and stored in constructor?
+float network::feedforward(std::vector<std::vector<board::counter>> boardVec){ // parameter is the input layer. TODO: make input layer declared and stored in constructor?
     
     // WeightOfInputCon * ActivationOfInputNeuron (for each input) = ActivationOfNewNeuron (+ bias with sigmoid func)
     
     std::vector<float> inputLayer;
     inputLayer.reserve(boardVec.size() * boardVec[0].size());
-    for(auto &&i: boardVec){
+    for(auto i: boardVec){
         for(auto j = 0; j <= i.size(); ++j){
-            inputLayer.push_back(i[j]);
+            inputLayer.push_back(static_cast<float>(i[j]));
         }
     }
     
-    for(auto &&i: hiddenLayer){ // iterate through neurons
-        for(int &&j = 0; j <= i.connectionVec.size(); ++j){ // iterate through connections
+    for(auto i: hiddenLayer){ // iterate through neurons
+        for(auto j = 0; j <= i.connectionVec.size(); ++j){ // iterate through connections
 
             i.value += i.connectionVec[j].weight * inputLayer[j];
 
         }
         i.sigmoid();
     }
-    for(auto &&i: hiddenLayer2){
-        for(int j = 0; j <= hiddenLayer.size(); ++j){
+    for(auto i: hiddenLayer2){
+        for(auto j = 0; j <= hiddenLayer.size(); ++j){
 
             i.value += i.connectionVec[j].weight * hiddenLayer[j].value;
 
         }
         i.sigmoid();
     }
-    for(auto &&i: outputLayer){
-        for(int j = 0; j <= hiddenLayer2.size(); ++j){
+    for(auto i: outputLayer){
+        for(auto j = 0; j <= hiddenLayer2.size(); ++j){
 
             i.value += i.connectionVec[j].weight * hiddenLayer2[j].value;
 
@@ -145,13 +144,13 @@ void network::mutate(){
     std::uniform_real_distribution<float> weightDistribution(0, 1);
 
 
-    for(int i = 0; i < MUTATESPERLAYER; ++i){
+    for(auto i = 0; i < MUTATESPERLAYER; ++i){
         hiddenLayer[netsizeDistribution(engine)].connectionVec[connectionDistribution1(engine)].weight = weightDistribution(engine);
     }
-    for(int i = 0; i < MUTATESPERLAYER; ++i){
+    for(auto i = 0; i < MUTATESPERLAYER; ++i){
         hiddenLayer2[netsizeDistribution(engine)].connectionVec[connectionDistribution2(engine)].weight = weightDistribution(engine);
     }
-    for(int i = 0; i < MUTATESPERLAYER; ++i){
+    for(auto i = 0; i < MUTATESPERLAYER; ++i){
         outputLayer[netsizeDistribution(engine)].connectionVec[connectionDistribution3(engine)].weight = weightDistribution(engine);
     }
 
