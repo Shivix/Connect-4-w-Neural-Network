@@ -3,7 +3,7 @@
 
 #include "neuron.hpp"
 #include <vector>
-#include "board.hpp"
+#include "board.hpp" // remove dependency on board class.
 
 class network{
 public:
