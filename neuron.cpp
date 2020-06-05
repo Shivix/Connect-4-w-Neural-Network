@@ -13,6 +13,10 @@ neuron::neuron(int connections){
 
 neuron::~neuron()= default;
 
+std::vector<neuron::connection> neuron::getConnectionVec(){
+    return connectionVec;
+}
+
 void neuron::sigmoid() { // runs when a neuron is fed from all previous neurons
 
     value = value / (1 + (std::abs(value)));
@@ -27,3 +31,5 @@ void neuron::activation(){
     
     
 }
+
+

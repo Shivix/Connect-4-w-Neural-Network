@@ -33,7 +33,7 @@ void agent::playGame(network network, board gameBoard, bool isRed){
 
 void agent::getFittest(){ // find fittest networks to keep
     
-    std::sort(networkVec.begin(), networkVec.end(), [](const network& a, const network& b) { // TODO: test to see if is descending or ascending
-        return a.fitness > b.fitness;
+    std::sort(networkVec.begin(), networkVec.end(), [](const network& a, const network& b) { // sorts networks in ascending order by fitness
+        return a.fitness < b.fitness;
     });
 }

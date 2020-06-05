@@ -20,7 +20,7 @@ public:
         float weight;
         int input;
     };
-    std::vector<connection> connectionVec;
+    std::vector<connection> getConnectionVec();
 
     
     void sigmoid();
@@ -31,7 +31,7 @@ private:
 
 
     void activation();
-    // send value to connected neurons function?
+    std::vector<connection> connectionVec;
     
 };
 

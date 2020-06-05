@@ -55,20 +55,20 @@ void network::crossover(network mate){ // combine half of the neurons of one net
 
 void network::drawNetwork(){ // gives visual feedback for test purposes.
     for(auto i: hiddenLayer){
-        for(auto j = 0; j < i.connectionVec.size(); ++j){
-            std::cout << "Weight:" << i.connectionVec[j].weight << "from:" << j << "neuron\n";
+        for(auto j = 0; j < i.getConnectionVec().size(); ++j){
+            std::cout << "Weight:" << i.getConnectionVec()[j].weight << "from:" << j << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
     for(auto i: hiddenLayer2){
-        for(auto j = 0; j < i.connectionVec.size(); ++j){
-            std::cout << "Weight:" << i.connectionVec[j].weight << "from:" << j << "neuron\n";
+        for(auto j = 0; j < i.getConnectionVec().size(); ++j){
+            std::cout << "Weight:" << i.getConnectionVec()[j].weight << "from:" << j << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
     for(auto i: outputLayer){
-        for(auto j = 0; j < i.connectionVec.size(); ++j){
-            std::cout << "Weight:" << i.connectionVec[j].weight << "from:" << j << "neuron\n";
+        for(auto j = 0; j < i.getConnectionVec().size(); ++j){
+            std::cout << "Weight:" << i.getConnectionVec()[j].weight << "from:" << j << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
@@ -96,9 +96,9 @@ float network::feedforward(std::vector<std::vector<board::counter>> boardVec){ /
     }
     
     for(auto i: hiddenLayer){ // iterate through neurons
-        for(auto j = 0; j <= i.connectionVec.size(); ++j){ // iterate through connections
+        for(auto j = 0; j <= i.getConnectionVec().size(); ++j){ // iterate through connections
 
-            i.value += i.connectionVec[j].weight * inputLayer[j];
+            i.value += i.getConnectionVec()[j].weight * inputLayer[j];
 
         }
         i.sigmoid();
@@ -106,7 +106,7 @@ float network::feedforward(std::vector<std::vector<board::counter>> boardVec){ /
     for(auto i: hiddenLayer2){
         for(auto j = 0; j <= hiddenLayer.size(); ++j){
 
-            i.value += i.connectionVec[j].weight * hiddenLayer[j].value;
+            i.value += i.getConnectionVec()[j].weight * hiddenLayer[j].value;
 
         }
         i.sigmoid();
@@ -114,7 +114,7 @@ float network::feedforward(std::vector<std::vector<board::counter>> boardVec){ /
     for(auto i: outputLayer){
         for(auto j = 0; j <= hiddenLayer2.size(); ++j){
 
-            i.value += i.connectionVec[j].weight * hiddenLayer2[j].value;
+            i.value += i.getConnectionVec()[j].weight * hiddenLayer2[j].value;
 
         }
         i.sigmoid();
@@ -138,20 +138,20 @@ float network::highestOutput(){
 void network::mutate(){
     
     std::uniform_int_distribution<int> netsizeDistribution(0, NETSIZE);
-    std::uniform_int_distribution<int> connectionDistribution1(0, hiddenLayer[0].connectionVec.size() * NETSIZE); // track amount of connections in one layer?
-    std::uniform_int_distribution<int> connectionDistribution2(0, hiddenLayer2[0].connectionVec.size() * NETSIZE);
-    std::uniform_int_distribution<int> connectionDistribution3(0, outputLayer[0].connectionVec.size() * NETSIZE); // only need one?
+    std::uniform_int_distribution<int> connectionDistribution1(0, hiddenLayer[0].getConnectionVec().size() * NETSIZE); // track amount of connections in one layer?
+    std::uniform_int_distribution<int> connectionDistribution2(0, hiddenLayer2[0].getConnectionVec().size() * NETSIZE);
+    std::uniform_int_distribution<int> connectionDistribution3(0, outputLayer[0].getConnectionVec().size() * NETSIZE); // only need one?
     std::uniform_real_distribution<float> weightDistribution(0, 1);
 
 
     for(auto i = 0; i < MUTATESPERLAYER; ++i){
-        hiddenLayer[netsizeDistribution(engine)].connectionVec[connectionDistribution1(engine)].weight = weightDistribution(engine);
+        hiddenLayer[netsizeDistribution(engine)].getConnectionVec()[connectionDistribution1(engine)].weight = weightDistribution(engine);
     }
     for(auto i = 0; i < MUTATESPERLAYER; ++i){
-        hiddenLayer2[netsizeDistribution(engine)].connectionVec[connectionDistribution2(engine)].weight = weightDistribution(engine);
+        hiddenLayer2[netsizeDistribution(engine)].getConnectionVec()[connectionDistribution2(engine)].weight = weightDistribution(engine);
     }
     for(auto i = 0; i < MUTATESPERLAYER; ++i){
-        outputLayer[netsizeDistribution(engine)].connectionVec[connectionDistribution3(engine)].weight = weightDistribution(engine);
+        outputLayer[netsizeDistribution(engine)].getConnectionVec()[connectionDistribution3(engine)].weight = weightDistribution(engine);
     }
 
 }

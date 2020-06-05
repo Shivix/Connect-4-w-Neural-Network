@@ -11,9 +11,10 @@
 
 #define SEARCH_DEPTH 8 // how many turns the program will look ahead when figuring out the best move
 
+
 class board{
 public:
-    enum class counter {
+    enum class counter{
         red = -1,
         yellow = 1,
         empty = 0,
