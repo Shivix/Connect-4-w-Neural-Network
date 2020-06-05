@@ -14,7 +14,7 @@ public:
     
     void drawNetwork();
     float feedforward(std::vector<std::vector<board::counter>>);
-    
+    void mutate();
     /*bool operator > (const network & networkVar) const
     {
         return fitness > networkVar.fitness;
@@ -29,8 +29,7 @@ private:
     void crossover(network);
     void fitnessTest();
     float highestOutput();
-    void mutate();
-
+    
     
 };
 
