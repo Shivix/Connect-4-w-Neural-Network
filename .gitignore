@@ -49,9 +49,12 @@ _deps
 # Text files
 *.txt
 
+
 *.xml
 *.iml
 *.cbp
 .idea/.gitignore
-main.cpp
 .idea/.name
+
+#temporary
+main.cpp

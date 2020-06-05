@@ -74,11 +74,7 @@ void network::drawNetwork(){ // gives visual feedback for test purposes.
     }
 }
 
-void network::fitnessTest(){ // does it need this when board has evaluation?
-
-    
-    
-    
+void network::fitnessTest(){ // will likely use the board class's evaluation function
     
     
 }
