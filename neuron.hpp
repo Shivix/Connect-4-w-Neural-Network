@@ -10,12 +10,13 @@ static std::mt19937 engine(randomDevice());
 class neuron{
 public:
     neuron(int);
+    neuron(neuron const&);
     ~neuron();
 
 
 public:
     
-    float value;
+    float value = 0; // TODO: value is getting reset seemingly at the end of feedForward()
     struct connection{
         float weight;
         int input;

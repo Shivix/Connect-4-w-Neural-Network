@@ -13,7 +13,7 @@ public:
     int fitness = 0;
     
     void drawNetwork();
-    float feedforward(std::vector<std::vector<board::counter>>);
+    float feedforward(const std::vector<std::vector<board::counter>>&);
     void mutate();
     /*bool operator > (const network & networkVar) const
     {
@@ -26,7 +26,7 @@ private:
     std::vector<neuron> outputLayer = {};
 
     const static int INPUTSIZE = 42; // set to the amount of positions on a connect4 board
-    void crossover(network);
+    void crossover(const network&);
     void fitnessTest();
     float highestOutput();
     

@@ -13,7 +13,7 @@ network::network(){
     hiddenLayer2.reserve(NETSIZE);
     outputLayer.reserve(NETSIZE);
     for(auto i = 0; i < NETSIZE; ++i){
-        hiddenLayer.emplace_back(neuron(INPUTSIZE));
+        hiddenLayer.emplace_back(neuron(INPUTSIZE)); // does not use copy constructor for emplace_back due to reserve
     }
     for(auto i = 0; i < NETSIZE; ++i){
         hiddenLayer2.emplace_back(neuron(NETSIZE));
@@ -39,7 +39,7 @@ network::~network(){
 }
 
 
-void network::crossover(network mate){ // combine half of the neurons of one network with another
+void network::crossover(const network& mate){ // combine half of the neurons of one network with another
 
     std::uniform_int_distribution<int> netsizeDistribution(0, NETSIZE);
     int neuronToCrossover;
@@ -79,7 +79,7 @@ void network::fitnessTest(){ // will likely use the board class's evaluation fun
     
 }
 
-float network::feedforward(std::vector<std::vector<board::counter>> boardVec){ // parameter is the input layer. TODO: make input layer declared and stored in constructor?
+float network::feedforward(const std::vector<std::vector<board::counter>>& boardVec){ // parameter is the input layer. TODO: make input layer declared and stored in constructor?
     
     // WeightOfInputCon * ActivationOfInputNeuron (for each input) = ActivationOfNewNeuron (+ bias with sigmoid func)
     
@@ -95,7 +95,6 @@ float network::feedforward(std::vector<std::vector<board::counter>> boardVec){ /
         for(auto j = 0; j <= i.getConnectionVec().size(); ++j){ // iterate through connections
 
             i.value += i.getConnectionVec()[j].weight * inputLayer[j];
-
         }
         i.sigmoid();
     }
@@ -128,7 +127,7 @@ float network::highestOutput(){
             highestValue = outputLayer[i].value;
         }
     }
-    return std::round(highestValue);
+    return std::round(highestValue); // round output to 1 to use with applyMove()
 }
 
 void network::mutate(){

@@ -26,6 +26,8 @@ public:
     
 public:
     board();
+/*    board(const board&);
+    board(const board&&) noexcept;*/
     ~board();
     void draw();
     bool applyMove(int move, bool isRed);

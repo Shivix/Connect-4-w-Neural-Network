@@ -13,6 +13,14 @@ board::board(){
     }
 }
 
+/*board::board(const board &){
+
+}
+
+board::board(const board &&) noexcept {
+
+}*/
+
 board::~board() = default;
 
 void board::draw(){
@@ -28,6 +36,7 @@ void board::draw(){
                 case counter::red : std::cout << "R"; break;
                 case counter::yellow : std::cout << "Y"; break;
                 case counter::both : std::cout << "B"; break; // both should never show up in play
+                default: std::cout << "X"; break;
             }
         }
         std::cout << "|\n";
@@ -269,3 +278,5 @@ int board::evaluateBoard(){
     }
     return evaluation;
 }
+
+
