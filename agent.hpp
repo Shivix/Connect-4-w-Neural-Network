@@ -11,10 +11,11 @@ public:
     
 private:
     
+    const int maxPop = 10;
     std::vector<network> networkVec;
     void playGame(network, board, bool); // will call copy constructor for both board and network
-    void getFittest(); // order networkVec in descending order of fitness Run for offspring AND parents together to ensure no regression
-    
+    void sortFittest(); // order networkVec in descending order of fitness Run for offspring AND parents together to ensure no regression
+    void cullPopulation();
 };
 
 

@@ -20,9 +20,7 @@ std::vector<neuron::connection> neuron::getConnectionVec(){
 }
 
 void neuron::sigmoid() { // runs when a neuron is fed from all previous neurons
-
-    std::tanh(value);
-
+    value = value / (1 + (std::abs(value)));
 }
 
 void neuron::activation(){

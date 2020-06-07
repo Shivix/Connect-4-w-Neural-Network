@@ -74,11 +74,6 @@ void network::drawNetwork(){ // gives visual feedback for test purposes.
     }
 }
 
-void network::fitnessTest(){ // will likely use the board class's evaluation function
-    
-    
-}
-
 float network::feedforward(const std::vector<std::vector<board::counter>>& boardVec){ // parameter is the input layer. TODO: make input layer declared and stored in constructor?
     
     // WeightOfInputCon * ActivationOfInputNeuron (for each input) = ActivationOfNewNeuron (+ bias with sigmoid func)

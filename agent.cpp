@@ -4,10 +4,17 @@
 
 
 agent::agent(){
-
+    for(auto i = 0; i < maxPop; ++i){
+        networkVec.emplace_back(network());
+    }
 }
 
 agent::~agent()= default;
+
+void agent::cullPopulation(){
+    sortFittest();
+    networkVec.erase(networkVec.begin() + (maxPop / 2), networkVec.end()); // removes half of the networks with the lowest fitness.
+}
 
 void agent::playGame(network network, board gameBoard, bool isRed){
 
@@ -29,11 +36,11 @@ void agent::playGame(network network, board gameBoard, bool isRed){
     network.fitness = gameBoard.evaluateBoard();
 }
 
-
-
-void agent::getFittest(){ // find fittest networks to keep
+void agent::sortFittest(){ // find fittest networks to keep
     
-    std::sort(networkVec.begin(), networkVec.end(), [](const network& a, const network& b) { // sorts networks in ascending order by fitness
-        return a.fitness < b.fitness;
+    std::sort(networkVec.begin(), networkVec.end(), [](const network& a, const network& b) { // sorts networks in descending order by fitness
+        return a.fitness > b.fitness;
     });
 }
+
+

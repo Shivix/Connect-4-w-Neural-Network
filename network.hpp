@@ -27,7 +27,6 @@ private:
 
     const static int INPUTSIZE = 42; // set to the amount of positions on a connect4 board
     void crossover(const network&);
-    void fitnessTest();
     float highestOutput();
     
     
