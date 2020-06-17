@@ -54,21 +54,24 @@ void network::crossover(const network& mate){ // combine half of the neurons of 
 }
 
 void network::drawNetwork(){ // gives visual feedback for test purposes.
+    std::cout << "========================================1st Hidden Layer========================================\n";
     for(auto i: hiddenLayer){
-        for(auto j = 0; j < i.getConnectionVec().size(); ++j){
-            std::cout << "Weight:" << i.getConnectionVec()[j].weight << "from:" << j << "neuron\n";
+        for(auto j: i.getConnectionVec()){
+            std::cout << "Weight:" << j.weight << "from:" << j.input << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
+    std::cout << "========================================2nd Hidden Layer========================================\n";
     for(auto i: hiddenLayer2){
-        for(auto j = 0; j < i.getConnectionVec().size(); ++j){
-            std::cout << "Weight:" << i.getConnectionVec()[j].weight << "from:" << j << "neuron\n";
+        for(auto j: i.getConnectionVec()){
+            std::cout << "Weight:" << j.weight << "from:" << j.input << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
+    std::cout << "========================================Output Layer========================================\n";
     for(auto i: outputLayer){
-        for(auto j = 0; j < i.getConnectionVec().size(); ++j){
-            std::cout << "Weight:" << i.getConnectionVec()[j].weight << "from:" << j << "neuron\n";
+        for(auto j: i.getConnectionVec()){
+            std::cout << "Weight:" << j.weight << "from:" << j.input << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
@@ -87,32 +90,28 @@ float network::feedforward(const std::vector<std::vector<board::counter>>& board
     }
     
     for(auto i: hiddenLayer){ // iterate through neurons
-        for(auto j = 0; j <= i.getConnectionVec().size(); ++j){ // iterate through connections
-
-            i.value += i.getConnectionVec()[j].weight * inputLayer[j];
+        for(auto j: i.getConnectionVec()){ // iterate through connections
+            i.value += (j.weight * inputLayer[j.input]);
         }
         i.sigmoid();
     }
     for(auto i: hiddenLayer2){
-        for(auto j = 0; j <= hiddenLayer.size(); ++j){
+        for(auto j: i.getConnectionVec()){
 
-            i.value += i.getConnectionVec()[j].weight * hiddenLayer[j].value;
-
+            i.value += (j.weight * hiddenLayer[j.input].value);
         }
         i.sigmoid();
     }
     for(auto i: outputLayer){
-        for(auto j = 0; j <= hiddenLayer2.size(); ++j){
+        for(auto j: i.getConnectionVec()){
 
-            i.value += i.getConnectionVec()[j].weight * hiddenLayer2[j].value;
-
+            i.value += (j.weight * hiddenLayer2[j.input].value);
         }
         i.sigmoid();
     }
     
     // return highest value in final layer?
     return highestOutput();
-    
 }
 
 float network::highestOutput(){
