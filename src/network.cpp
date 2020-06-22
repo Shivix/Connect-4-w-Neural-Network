@@ -80,16 +80,13 @@ void network::drawNetwork(){ // gives visual feedback for test purposes.
 float network::feedforward(const std::vector<std::vector<board::counter>>& boardVec){ // parameter is the input layer. TODO: make input layer declared and stored in constructor?
     
     // WeightOfInputCon * ActivationOfInputNeuron (for each input) = ActivationOfNewNeuron (+ bias with sigmoid func)
-    
     std::vector<float> inputLayer;
     inputLayer.reserve(boardVec.size() * boardVec[0].size());
     for(auto&& i: boardVec){
         for(auto&& j: i){
             inputLayer.push_back(static_cast<float>(j));
-            std::cout << static_cast<float>(j) << std::endl;
         }
     }
-    std::cout << "========================1================================================================" << std::endl;
     for(auto&& i: hiddenLayer){ // iterate through neurons
         for(auto&& j: i.getConnectionVec()){ // iterate through connections
             i.value += (j.weight * inputLayer[j.input]);
@@ -108,7 +105,6 @@ float network::feedforward(const std::vector<std::vector<board::counter>>& board
         }
         i.sigmoid();
     }
-    
     // return highest value in final layer?
     return highestOutput();
 }

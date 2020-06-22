@@ -4,7 +4,6 @@
 
 
 neuron::neuron(int connections){
-
     static std::uniform_real_distribution<float> randomDistribution(0, 1.0); // TODO: implement negative weights
     connectionVec.resize(connections);
     int inputIter = -1;
@@ -23,9 +22,7 @@ std::vector<neuron::connection> neuron::getConnectionVec(){
 }
 
 void neuron::sigmoid() { // runs when a neuron is fed from all previous neurons
-    //std::cout << "v0" << value;
     value = value / (1 + (std::abs(value)));
-    //std::cout << "v1" << value;
 }
 
 void neuron::activation(){
