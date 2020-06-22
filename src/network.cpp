@@ -41,7 +41,7 @@ network::~network(){
 
 void network::crossover(const network& mate){ // combine half of the neurons of one network with another
 
-    std::uniform_int_distribution<int> netsizeDistribution(0, NETSIZE);
+    std::uniform_int_distribution<int> netsizeDistribution(0, NETSIZE - 1);
     int neuronToCrossover;
     for(auto i = 0; i < NETSIZE / 2; ++i){ // this will often copy over a neuron that has already been copied meaning the network that calls the function will have the dominant genome (temp)
         neuronToCrossover = netsizeDistribution(engine);

@@ -28,6 +28,4 @@ void neuron::sigmoid() { // runs when a neuron is fed from all previous neurons
 void neuron::activation(){
     
     
-    
 }
-

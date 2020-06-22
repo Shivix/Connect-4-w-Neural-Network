@@ -12,6 +12,7 @@ public:
 
     int fitness = 0;
     
+    void crossover(const network&);
     void drawNetwork();
     float feedforward(const std::vector<std::vector<board::counter>>&);
     void mutate();
@@ -24,12 +25,8 @@ private:
     std::vector<neuron> hiddenLayer = {}; // TODO: improve scalability of adding layers // parameter in constructor for how many hidden layers after first.
     std::vector<neuron> hiddenLayer2 = {};
     std::vector<neuron> outputLayer = {};
-
     const static int INPUTSIZE = 42; // set to the amount of positions on a connect4 board
-    void crossover(const network&);
     float highestOutput();
-    
-    
 };
 
 
