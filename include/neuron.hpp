@@ -10,26 +10,22 @@ static std::mt19937 engine(randomDevice());
 class neuron{
 public:
     neuron(int);
-    neuron(neuron const&);
+    neuron(const neuron&);// TODO: implement move constructor?
     ~neuron();
 
 
 public:
-    
-    float value = 0; // TODO: value is getting reset seemingly at the end of feedForward()
+    float value = 0.0f; // TODO: value is getting reset seemingly at the end of feedForward() SEEMS TO BE OVERFLOWING
     struct connection{
         float weight;
         int input;
     };
     std::vector<connection> getConnectionVec();
-
     
     void sigmoid();
     
 private:
-
     float bias = 0;
-
 
     void activation();
     std::vector<connection> connectionVec;

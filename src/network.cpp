@@ -13,7 +13,7 @@ network::network(){
     hiddenLayer2.reserve(NETSIZE);
     outputLayer.reserve(NETSIZE);
     for(auto i = 0; i < NETSIZE; ++i){
-        hiddenLayer.emplace_back(neuron(INPUTSIZE)); // does not use copy constructor for emplace_back due to reserve
+        hiddenLayer.emplace_back(neuron(INPUTSIZE));
     }
     for(auto i = 0; i < NETSIZE; ++i){
         hiddenLayer2.emplace_back(neuron(NETSIZE));
@@ -25,13 +25,13 @@ network::network(){
 
 network::~network(){
 
-    /*for(auto & i : hiddenLayer){ // ensure heap allocated memory is deleted once the object is out of scope
+    /*for(auto&& i : hiddenLayer){ // ensure heap allocated memory is deleted once the object is out of scope
         delete i;
     }
-    for(auto & i : hiddenLayer2){
+    for(auto&& i : hiddenLayer2){
         delete i;
     }
-    for(auto & i : outputLayer){
+    for(auto&& i : outputLayer){
         delete i;
     }*/
     
@@ -45,7 +45,7 @@ void network::crossover(const network& mate){ // combine half of the neurons of 
     int neuronToCrossover;
     for(auto i = 0; i < NETSIZE / 2; ++i){ // this will often copy over a neuron that has already been copied meaning the network that calls the function will have the dominant genome (temp)
         neuronToCrossover = netsizeDistribution(engine);
-        this->hiddenLayer[neuronToCrossover] = mate.hiddenLayer[neuronToCrossover]; // copy constructor called here
+        this->hiddenLayer[neuronToCrossover] = mate.hiddenLayer[neuronToCrossover];
         neuronToCrossover = netsizeDistribution(engine);
         this->hiddenLayer2[neuronToCrossover] = mate.hiddenLayer2[neuronToCrossover];
         neuronToCrossover = netsizeDistribution(engine);
@@ -55,22 +55,22 @@ void network::crossover(const network& mate){ // combine half of the neurons of 
 
 void network::drawNetwork(){ // gives visual feedback for test purposes.
     std::cout << "========================================1st Hidden Layer========================================\n";
-    for(auto i: hiddenLayer){
-        for(auto j: i.getConnectionVec()){
+    for(auto&& i: hiddenLayer){
+        for(auto&& j: i.getConnectionVec()){
             std::cout << "Weight:" << j.weight << "from:" << j.input << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
     std::cout << "========================================2nd Hidden Layer========================================\n";
-    for(auto i: hiddenLayer2){
-        for(auto j: i.getConnectionVec()){
+    for(auto&& i: hiddenLayer2){
+        for(auto&& j: i.getConnectionVec()){
             std::cout << "Weight:" << j.weight << "from:" << j.input << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
     }
     std::cout << "========================================Output Layer========================================\n";
-    for(auto i: outputLayer){
-        for(auto j: i.getConnectionVec()){
+    for(auto&& i: outputLayer){
+        for(auto&& j: i.getConnectionVec()){
             std::cout << "Weight:" << j.weight << "from:" << j.input << "neuron\n";
         }
         std::cout << "Value:" << i.value << "\n";
@@ -83,28 +83,27 @@ float network::feedforward(const std::vector<std::vector<board::counter>>& board
     
     std::vector<float> inputLayer;
     inputLayer.reserve(boardVec.size() * boardVec[0].size());
-    for(auto i: boardVec){
-        for(auto j = 0; j <= i.size(); ++j){
-            inputLayer.push_back(static_cast<float>(i[j]));
+    for(auto&& i: boardVec){
+        for(auto&& j: i){
+            inputLayer.push_back(static_cast<float>(j));
+            std::cout << static_cast<float>(j) << std::endl;
         }
     }
-    
-    for(auto i: hiddenLayer){ // iterate through neurons
-        for(auto j: i.getConnectionVec()){ // iterate through connections
+    std::cout << "========================1================================================================" << std::endl;
+    for(auto&& i: hiddenLayer){ // iterate through neurons
+        for(auto&& j: i.getConnectionVec()){ // iterate through connections
             i.value += (j.weight * inputLayer[j.input]);
         }
         i.sigmoid();
     }
-    for(auto i: hiddenLayer2){
-        for(auto j: i.getConnectionVec()){
-
+    for(auto&& i: hiddenLayer2){
+        for(auto&& j: i.getConnectionVec()){
             i.value += (j.weight * hiddenLayer[j.input].value);
         }
         i.sigmoid();
     }
-    for(auto i: outputLayer){
-        for(auto j: i.getConnectionVec()){
-
+    for(auto&& i: outputLayer){
+        for(auto&& j: i.getConnectionVec()){
             i.value += (j.weight * hiddenLayer2[j.input].value);
         }
         i.sigmoid();
