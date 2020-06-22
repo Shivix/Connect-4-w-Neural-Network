@@ -31,5 +31,3 @@ void neuron::activation(){
     
 }
 
-
-

@@ -121,13 +121,12 @@ float network::highestOutput(){
 
 void network::mutate(){
     
-    std::uniform_int_distribution<int> netsizeDistribution(0, NETSIZE);
-    std::uniform_int_distribution<int> connectionDistribution1(0, hiddenLayer[0].getConnectionVec().size() * NETSIZE); // track amount of connections in one layer?
-    std::uniform_int_distribution<int> connectionDistribution2(0, hiddenLayer2[0].getConnectionVec().size() * NETSIZE);
-    std::uniform_int_distribution<int> connectionDistribution3(0, outputLayer[0].getConnectionVec().size() * NETSIZE); // only need one?
+    std::uniform_int_distribution<int> netsizeDistribution(0, (NETSIZE - 1));
+    std::uniform_int_distribution<int> connectionDistribution1(0, hiddenLayer[0].getConnectionVec().size() - 1); // track amount of connections in one layer?
+    std::uniform_int_distribution<int> connectionDistribution2(0, hiddenLayer2[0].getConnectionVec().size() - 1);
+    std::uniform_int_distribution<int> connectionDistribution3(0, outputLayer[0].getConnectionVec().size() - 1); // only need one?
     std::uniform_real_distribution<float> weightDistribution(0, 1);
-
-
+    
     for(auto i = 0; i < MUTATESPERLAYER; ++i){
         hiddenLayer[netsizeDistribution(engine)].getConnectionVec()[connectionDistribution1(engine)].weight = weightDistribution(engine);
     }
