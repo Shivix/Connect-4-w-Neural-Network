@@ -1,31 +1,29 @@
 #ifndef CONNECT4_WITH_REINFORCEMENT_LEARNING_NETWORK_HPP
 #define CONNECT4_WITH_REINFORCEMENT_LEARNING_NETWORK_HPP
 
-#include "neuron.hpp"
 #include <vector>
-#include "board.hpp" // remove dependency on board class.
+#include "layer.hpp"
 
-class network{
+
+class network{ // TODO: MAYBE TRY LAYER BASE CLASS HIDDEN? OUTPUT ETC LAYERS AS CHILD CLASSES. layer class alone could help ALOT with scalability
 public:
-    network();
+    network(const std::vector<int>&);
     ~network();
 
     int fitness = 0;
     
     void crossover(const network&);
     void drawNetwork();
-    float feedforward(const std::vector<std::vector<board::counter>>&);
+    void feedForward();
     void mutate();
-    /*bool operator > (const network & networkVar) const
+    /*bool operator > (const network& networkVar) const
     {
         return fitness > networkVar.fitness;
     }*/
+    std::vector<layer> layerVec = {};
     
 private:
-    std::vector<neuron> hiddenLayer = {}; // TODO: improve scalability of adding layers // parameter in constructor for how many hidden layers after first.
-    std::vector<neuron> hiddenLayer2 = {};
-    std::vector<neuron> outputLayer = {};
-    const static int INPUTSIZE = 42; // set to the amount of positions on a connect4 board
+    static constexpr int INPUTSIZE = 42; // set to the amount of positions on a connect4 board
     float highestOutput();
 };
 

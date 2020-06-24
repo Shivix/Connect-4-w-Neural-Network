@@ -6,7 +6,7 @@
 
 class agent{
 public:
-    agent(); // give agent all the networks?
+    agent(const std::vector<int>&); // give agent all the networks?
     ~agent();
     
 private:

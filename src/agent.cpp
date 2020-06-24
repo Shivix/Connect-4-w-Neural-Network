@@ -2,10 +2,9 @@
 #include "../include/agent.hpp"
 
 
-
-agent::agent(){
+agent::agent(const std::vector<int>& input){
     for(auto i = 0; i < maxPop; ++i){
-        networkVec.emplace_back(network());
+        networkVec.emplace_back(network(input));
     }
 }
 
@@ -22,7 +21,7 @@ void agent::playGame(network network, board gameBoard, bool isRed){
 
     // plug current board state into feedforward function // game state class?
     while(!gameBoard.gameWon){
-        netMove = static_cast<int>(network.feedforward(gameBoard.boardVec));
+        //netMove = network.feedForward();
 
         // applymove function on feedforward output? LOOP WITH ABOVE UNTIL GAME OVER
 

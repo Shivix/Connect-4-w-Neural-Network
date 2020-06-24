@@ -14,7 +14,7 @@
 
 class board{
 public:
-    enum class counter{
+    enum class counter: int{
         red = -1,
         yellow = 1,
         empty = 0,

@@ -16,7 +16,7 @@ public:
 
 public:
     float value = 0.0f; // TODO: value is getting reset seemingly at the end of feedForward() SEEMS TO BE OVERFLOWING
-    struct connection{
+    struct connection{ // connections going IN to the neuron
         float weight;
         int input;
     };
