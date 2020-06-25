@@ -29,6 +29,7 @@ private:
 
     void activation();
     std::vector<connection> connectionVec;
+    friend std::ostream& operator<<(std::ostream&, const connection&);
     
 };
 
