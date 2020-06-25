@@ -2,7 +2,7 @@
 #include "../include/agent.hpp"
 
 
-agent::agent(const std::vector<int>& input){
+agent::agent(std::vector<int>* input){
     for(auto i = 0; i < maxPop; ++i){
         networkVec.emplace_back(network(input));
     }

@@ -5,12 +5,20 @@
 
 class layer{
 public:
-    layer();
+    layer(int);
     ~layer();
 public:
-    void feed(const layer&); // per layer?
-    static constexpr int NEURONSPERLAYER = 30;
-    std::vector<neuron> neuronVec = {}; // TODO: improve scalability of adding layers // parameter in constructor for how many hidden layers after first.
+    void feed(const layer&);
+    template<typename T>
+    void feed(const std::vector<T>& inputLayer){
+        for(auto&& i: this->neuronVec){ // iterate through neurons
+            for(auto&& j: i.getConnectionVec()){ // iterate through connections
+                i.value += (j.weight * inputLayer[j.input]);
+            }
+            i.sigmoid();
+        }
+    }
+    std::vector<neuron> neuronVec = {};
 };
 
 
