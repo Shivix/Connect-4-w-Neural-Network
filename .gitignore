@@ -58,3 +58,7 @@ _deps
 
 #temporary
 src/main.cpp
+/include/board.hpp
+/include/opponent.hpp
+/src/opponent.cpp
+/src/board.cpp
