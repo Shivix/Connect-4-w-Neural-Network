@@ -46,12 +46,12 @@ void network::drawNetwork(){ // gives visual feedback for test purposes.
     }
 }
 
-void network::feedForward(){
+int network::feedForward(){
     layerVec[0].feed(*inputLayer);
     for(auto i = 1; i < layerVec.size(); ++i){
         layerVec[i].feed(layerVec[i - 1]);
     }
-    //return static_cast<int>(highestOutput());
+    return static_cast<int>(highestOutput());
 }
 
 float network::highestOutput(){

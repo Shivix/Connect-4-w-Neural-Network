@@ -5,7 +5,7 @@
 #include "layer.hpp"
 
 
-class network{ // TODO: MAYBE TRY LAYER BASE CLASS HIDDEN? OUTPUT ETC LAYERS AS CHILD CLASSES. layer class alone could help ALOT with scalability
+class network{
 public:
     explicit network(std::vector<int>*);
     ~network();
@@ -14,7 +14,7 @@ public:
     
     void crossover(const network&);
     void drawNetwork();
-    void feedForward();
+    int feedForward();
     void mutate();
     /*bool operator > (const network& networkVar) const
     {
