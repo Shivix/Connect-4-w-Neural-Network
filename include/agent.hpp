@@ -2,11 +2,10 @@
 #define CONNECT4_WITH_REINFORCEMENT_LEARNING_AGENT_HPP
 
 #include "network.hpp"
-#include "board.hpp"
 
 class agent{
 public:
-    explicit agent(std::vector<int>*); // give agent all the networks?
+    explicit agent(std::vector<int>*);
     ~agent();
     std::vector<network> generation;
     
