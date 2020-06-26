@@ -5,7 +5,7 @@
 
 class layer{
 public:
-    layer(int);
+    explicit layer(int);
     ~layer();
 public:
     void feed(const layer&);

@@ -7,7 +7,7 @@
 
 class network{ // TODO: MAYBE TRY LAYER BASE CLASS HIDDEN? OUTPUT ETC LAYERS AS CHILD CLASSES. layer class alone could help ALOT with scalability
 public:
-    network(std::vector<int>*);
+    explicit network(std::vector<int>*);
     ~network();
 
     int fitness = 0;
