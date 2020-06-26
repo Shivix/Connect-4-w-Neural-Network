@@ -30,7 +30,7 @@ void neuron::activation(){
     
 }
 
-std::ostream& operator<<(std::ostream& os, const neuron::connection& connection){
+std::ostream& operator<<(std::ostream& os, const neuron::connection& connection){// makes the content of a neuron easier to output.
     os << "Weight:" << connection.weight << "from:" << connection.input << "neuron\n";
     return os;
 }

@@ -10,9 +10,9 @@ public:
 public:
     void feed(const layer&);
     template<typename T>
-    void feed(const std::vector<T>& inputLayer){
-        for(auto&& i: this->neuronVec){ // iterate through neurons
-            for(auto&& j: i.getConnectionVec()){ // iterate through connections
+    void feed(const std::vector<T>& inputLayer){ // template used to make less restrictive. Restriction currently still exists at higher level
+        for(auto&& i: this->neuronVec){
+            for(auto&& j: i.getConnectionVec()){
                 i.value += (j.weight * inputLayer[j.input]);
             }
             i.sigmoid();

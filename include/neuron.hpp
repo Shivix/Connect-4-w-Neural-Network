@@ -10,7 +10,7 @@ static std::mt19937 engine(randomDevice());
 class neuron{
 public:
     explicit neuron(int);
-    neuron(const neuron&);// TODO: implement move constructor?
+    neuron(const neuron&);
     ~neuron();
 
 

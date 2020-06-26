@@ -23,7 +23,7 @@ public:
     std::vector<layer> layerVec = {}; // contains hidden layers and output layer.
     
 private:
-    static constexpr int INPUTSIZE = 42; // set to the amount of positions on a connect4 board
+    static constexpr int INPUTSIZE = 42;
     static constexpr int NEURONS_PER_LAYER = 30;
     static constexpr int MUTATES_PER_LAYER = 3;
     std::vector<int>* inputLayer; // stored as pointer to the source of the input layer to ensure layer is kept up to date
