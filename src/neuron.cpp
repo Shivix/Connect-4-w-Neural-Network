@@ -4,7 +4,7 @@
 
 
 neuron::neuron(int connections){
-    static std::uniform_real_distribution<float> randomDistribution(0, 1.0); // TODO: implement negative weights
+    static std::uniform_real_distribution<float> randomDistribution(-1, 1.0);
     connectionVec.resize(connections);
     int inputIter = -1;
     for(auto&& i: connectionVec){
