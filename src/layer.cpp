@@ -6,9 +6,7 @@ layer::layer(int neurons){
     }
 }
 
-layer::~layer(){
-
-}
+layer::~layer()= default;
 
 void layer::feed(const layer& prevLayer){ 
     for(auto&& i: this->neuronVec){
