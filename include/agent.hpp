@@ -8,12 +8,11 @@ namespace GNN{
     template<typename T>
     class agent{
     public:
-        explicit agent(std::vector<T>* input){ // TODO: make agent base class. Use by inheriting and adding specific functions for use case.
+        explicit agent(std::vector<T>* input){
             for(auto i = 0; i < maxPop; ++i){
                 generation.emplace_back(network(input));
             }
         }
-        
         ~agent()= default;
         std::vector<network<T>> generation;
         
