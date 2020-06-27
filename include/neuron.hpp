@@ -27,11 +27,13 @@ namespace GNN{
             return os;
         }
         void sigmoid();
+        void tanh() const;
+        typedef void (*func)(float a);
+        void activation(func) const;
         
     private:
         float bias = 0;
-    
-        void activation();
+        
         std::vector<connection> connectionVec;
     };
 }

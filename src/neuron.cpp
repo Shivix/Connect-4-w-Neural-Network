@@ -25,7 +25,10 @@ void GNN::neuron::sigmoid() { // runs when a neuron is fed from all previous neu
     value = value / (1 + (std::abs(value)));
 }
 
-void GNN::neuron::activation(){
-    
-    
+void GNN::neuron::tanh() const { // runs when a neuron is fed from all previous neurons
+    std::tanh(value);
+}
+
+void GNN::neuron::activation(func activationFunc) const{
+    activationFunc(value);
 }
