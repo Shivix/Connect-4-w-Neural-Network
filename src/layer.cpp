@@ -1,14 +1,14 @@
 #include "../include/layer.hpp"
 
-layer::layer(int neurons){
+GNN::layer::layer(int neurons){
     for(auto i = 0; i < neurons; ++i){
-        neuronVec.emplace_back(neuron(neurons));
+        neuronVec.emplace_back(GNN::neuron(neurons));
     }
 }
 
-layer::~layer()= default;
+GNN::layer::~layer()= default;
 
-void layer::feed(const layer& prevLayer){ 
+void GNN::layer::feed(const layer& prevLayer){ 
     for(auto&& i: this->neuronVec){
         for(auto&& j: i.getConnectionVec()){ 
             i.value += (j.weight * prevLayer.neuronVec[j.input].value);
