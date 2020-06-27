@@ -25,3 +25,5 @@ is repeated for each incoming neuron. The value is then passed through a sigmoid
 non-linearity.
 
 # How to use on your own data set
+
+Please refer to the [Wiki](https://github.com/Shivix/Genetic-Neural-Network/wiki)
