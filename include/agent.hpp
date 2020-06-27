@@ -10,7 +10,7 @@ namespace GNN{
     public:
         explicit agent(std::vector<T>* input){
             for(auto i = 0; i < maxPop; ++i){
-                generation.emplace_back(network(input));
+                generation.emplace_back(network<T>(input)); // gives agent a full generation of networks to compare fitness
             }
         }
         ~agent()= default;
