@@ -7,20 +7,20 @@
 #include "layer.hpp"
 #include "neuron.hpp"
 
-#define NUMOFLAYERS 3
-
 namespace GNN{
     template<typename T>
     class network{
     public:
-        explicit network(std::vector<T>* inputLayer){
+        explicit network(std::vector<T>* inputLayer, int numberOfLayers, int neuronsPerLayer){
             this->inputLayer = inputLayer;
-            layerVec.reserve(NUMOFLAYERS);
+            layerVec.reserve(numberOfLayers);
             layerVec.emplace_back(layer(inputLayer->size()));
-            for(auto i = 1; i < NUMOFLAYERS - 2; ++i){
-                layerVec.emplace_back(layer(NEURONS_PER_LAYER));
+            for(auto i = 1; i < numberOfLayers - 2; ++i){
+                layerVec.emplace_back(layer(neuronsPerLayer));
             }
-            layerVec.emplace_back(layer(NEURONS_PER_LAYER));
+            layerVec.emplace_back(layer(neuronsPerLayer));
+            NEURONS_PER_LAYER = neuronsPerLayer;
+            INPUTSIZE = inputLayer->size();
         }
         ~network(){
             /*for(auto&& i : layerVec){ // ensure heap allocated memory is deleted once the object is out of scope
@@ -57,12 +57,12 @@ namespace GNN{
             }
             return highestOutput();
         }
-        void mutate(){
+        void mutate(int mutatesPerLayer){
             std::uniform_int_distribution<int> neuronDistribution(0, (NEURONS_PER_LAYER - 1));
             std::uniform_int_distribution<int> connectionDistribution(0, NEURONS_PER_LAYER - 1); // track amount of connections in one layer?
             std::uniform_real_distribution<float> weightDistribution(0, 1);
             for(auto i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
-                for(auto j = 0; j < MUTATES_PER_LAYER; ++j){
+                for(auto j = 0; j < mutatesPerLayer; ++j){
                     layerVec[i].neuronVec[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(
                             engine)].weight = weightDistribution(engine);
                 }
@@ -71,9 +71,8 @@ namespace GNN{
         std::vector<layer> layerVec = {}; // contains hidden layers and output layer.
         
     private:
-        static constexpr int INPUTSIZE = 42;
-        static constexpr int NEURONS_PER_LAYER = 30;
-        static constexpr int MUTATES_PER_LAYER = 3;
+        int INPUTSIZE = -1; // TODO: Make changeable outside library
+        int NEURONS_PER_LAYER = -1;
         std::vector<T>* inputLayer; // stored as pointer to the source of the input layer to ensure layer is kept up to date
         float highestOutput(){
             float highestValue = layerVec.back().neuronVec[0].value;
