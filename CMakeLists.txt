@@ -11,5 +11,5 @@ set(INCLUDES
 
 add_executable(Genetic_Neural_Network ${SOURCES} ${INCLUDES} src/main.cpp test.cpp test.hpp)
 
-#add_library(Genetic_Neural_Network STATIC ${INCLUDES} ${SOURCES})
+#add_library(Genetic_Neural_Network INTERFACE ${INCLUDES} ${SOURCES})
 #set_target_properties(Genetic_Neural_Network PROPERTIES LINKER_LANGUAGE CXX)
