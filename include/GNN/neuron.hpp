@@ -6,15 +6,15 @@
 namespace GNN{
     static std::random_device randomDevice;
     static std::mt19937 engine(randomDevice());
-
+    inline std::uniform_real_distribution<float> weightDistribution(-1, 1.0);
+    
     class neuron{
     public:
-        explicit neuron(int connections){
-            static std::uniform_real_distribution<float> randomDistribution(-1, 1.0);
+        explicit inline neuron(int connections){
             connectionVec.resize(connections);
             int inputIter = -1;
             for(auto&& i: connectionVec){
-                i.weight = randomDistribution(GNN::engine);
+                i.weight = weightDistribution(engine);
                 i.input = ++inputIter;
             }
         }
@@ -28,11 +28,11 @@ namespace GNN{
             float weight;
             int input;
         };
-        std::vector<connection> getConnectionVec(){
+        inline std::vector<connection> getConnectionVec(){
             return connectionVec;
         }
         template <typename charT, typename traits>
-        friend std::basic_ostream<charT,traits>& operator<<(std::basic_ostream<charT,traits>& os, const GNN::neuron::connection& connection){// makes the content of a neuron easier to output.
+        friend std::basic_ostream<charT,traits>& operator<<(std::basic_ostream<charT,traits>& os, const connection& connection){// makes the content of a neuron easier to output.
             os << "Weight:" << connection.weight << "from:" << connection.input << "neuron\n";
             return os;
         }

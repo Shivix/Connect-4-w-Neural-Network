@@ -7,9 +7,9 @@
 namespace GNN{
     class layer{
     public:
-        explicit layer(int neurons){
+        explicit inline layer(int neurons){
             for(auto i = 0; i < neurons; ++i){
-                neuronVec.emplace_back(GNN::neuron(neurons));
+                neuronVec.emplace_back(neuron(neurons));
             }
         }
         ~layer()= default;
@@ -32,7 +32,7 @@ namespace GNN{
                 i.sigmoid();
             }
         }
-        std::vector<GNN::neuron> neuronVec = {};
+        std::vector<neuron> neuronVec = {};
     };
 }
 

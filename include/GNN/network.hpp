@@ -5,13 +5,12 @@
 #include <iostream>
 #include <random>
 #include "layer.hpp"
-#include "neuron.hpp"
 
 namespace GNN{
     template<typename T>
     class network{
     public:
-        explicit network(std::vector<T>* inputLayer, int numberOfLayers, int neuronsPerLayer){
+        explicit inline network(std::vector<T>* inputLayer, int numberOfLayers, int neuronsPerLayer){
             this->inputLayer = inputLayer;
             layerVec.reserve(numberOfLayers);
             layerVec.emplace_back(layer(inputLayer->size()));
@@ -60,7 +59,6 @@ namespace GNN{
         void mutate(int mutatesPerLayer){
             std::uniform_int_distribution<int> neuronDistribution(0, (NEURONS_PER_LAYER - 1));
             std::uniform_int_distribution<int> connectionDistribution(0, NEURONS_PER_LAYER - 1); // track amount of connections in one layer?
-            std::uniform_real_distribution<float> weightDistribution(0, 1);
             for(auto i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
                 for(auto j = 0; j < mutatesPerLayer; ++j){
                     layerVec[i].neuronVec[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(
