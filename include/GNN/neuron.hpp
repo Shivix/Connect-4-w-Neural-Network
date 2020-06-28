@@ -22,10 +22,15 @@ namespace GNN{
         neuron(neuron&& neuron):
             value(std::move(neuron.value)),
             connectionVec(std::move(neuron.connectionVec)),
-            bias(neuron.bias)
+            bias(std::move(neuron.bias))
         {};
         ~neuron()= default;
-        
+        neuron& operator = (const neuron& neuron) = default;
+        neuron& operator = (neuron&& neuron){
+            this->value = neuron.value;
+            this->connectionVec = neuron.connectionVec;
+            this->bias = neuron.bias;
+            return *this;}
     public:
         float value = 0.0f;
         struct connection{ // connections going IN to the neuron
@@ -33,11 +38,11 @@ namespace GNN{
             int input;
         };
         
-        typedef void (*func)(float a);
-        void activation(func activationFunc) const{
+        typedef float (*function)(float a);
+        void activation(function activationFunc) const{ // can allow the library user to provide their own nonlinear function
             activationFunc(value);
         }
-        inline auto getConnectionVec() -> std::vector<connection>& {
+        inline auto getConnectionVec() -> std::vector<connection>& { // provides better encapsulation since connectionVec should never be edited outside of the class
             return connectionVec;
         }
         void sigmoid() { // runs when a neuron is fed from all previous neurons
@@ -47,7 +52,7 @@ namespace GNN{
             std::tanh(value);
         }
         template <typename charT, typename traits>
-        friend std::basic_ostream<charT,traits>& operator<<(std::basic_ostream<charT,traits>& os, const connection& connection){// makes the content of a neuron easier to output.
+        friend std::basic_ostream<charT,traits>& operator << (std::basic_ostream<charT,traits>& os, const connection& connection){// makes the content of a neuron easier to output.
             os << "Weight:" << connection.weight << "from:" << connection.input << "neuron\n";
             return os;
         }
