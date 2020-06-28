@@ -19,14 +19,14 @@ namespace GNN{
             }
         }
         neuron(const neuron& neuron) = default;
-        neuron(neuron&& neuron):
+        neuron(neuron&& neuron) noexcept:
             value(std::move(neuron.value)),
-            connectionVec(std::move(neuron.connectionVec)),
+            connectionVec(std::exchange(this->connectionVec, neuron.connectionVec)),
             bias(std::move(neuron.bias))
         {};
         ~neuron()= default;
         neuron& operator = (const neuron& neuron) = default;
-        neuron& operator = (neuron&& neuron){
+        neuron& operator = (neuron&& neuron) noexcept{
             this->value = neuron.value;
             this->connectionVec = neuron.connectionVec;
             this->bias = neuron.bias;
