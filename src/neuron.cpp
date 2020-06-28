@@ -1,6 +1,6 @@
 #include <cmath>
 #include <iostream>
-#include "../GNN/include/neuron.hpp"
+#include "../include/GNN/neuron.hpp"
 
 
 GNN::neuron::neuron(int connections){

@@ -58,7 +58,7 @@ documentation.txt
 
 #temporary
 src/main.cpp
-/GNN/include/board.hpp
-/GNN/include/opponent.hpp
+/include/board.hpp
+/include/opponent.hpp
 /src/opponent.cpp
 /src/board.cpp

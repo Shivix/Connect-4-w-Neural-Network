@@ -8,10 +8,10 @@ set(SOURCES
         src/neuron.cpp)
 
 set(INCLUDES
-        GNN/include/agent.hpp
-        GNN/include/network.hpp
-        GNN/include/layer.hpp
-        GNN/include/neuron.hpp)
+        include/GNN/agent.hpp
+        include/GNN/network.hpp
+        include/GNN/layer.hpp
+        include/GNN/neuron.hpp)
 
 add_executable(Genetic_Neural_Network ${SOURCES} ${INCLUDES} src/main.cpp test.cpp test.hpp)
 
