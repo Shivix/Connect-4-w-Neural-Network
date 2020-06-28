@@ -47,7 +47,7 @@ _deps
 *.app
 
 # Text files
-*.txt
+documentation.txt
 
 
 *.xml
