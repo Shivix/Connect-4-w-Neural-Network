@@ -27,9 +27,10 @@ namespace GNN{
         ~neuron()= default;
         neuron& operator = (const neuron& neuron) = default;
         neuron& operator = (neuron&& neuron) noexcept{
-            this->value = neuron.value;
-            this->connectionVec = neuron.connectionVec;
-            this->bias = neuron.bias;
+            this->value = std::move(neuron.value);
+            this->connectionVec = std::move(neuron.connectionVec);
+            neuron.connectionVec.clear();
+            this->bias = std::move(neuron.bias);
             return *this;}
     public:
         float value = 0.0f;
