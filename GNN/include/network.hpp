@@ -71,7 +71,7 @@ namespace GNN{
         std::vector<layer> layerVec = {}; // contains hidden layers and output layer.
         
     private:
-        int INPUTSIZE = -1; // TODO: Make changeable outside library
+        int INPUTSIZE = -1;
         int NEURONS_PER_LAYER = -1;
         std::vector<T>* inputLayer; // stored as pointer to the source of the input layer to ensure layer is kept up to date
         float highestOutput(){
