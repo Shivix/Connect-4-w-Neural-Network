@@ -1,4 +1,4 @@
-#include "../include/layer.hpp"
+#include "../GNN/include/layer.hpp"
 
 GNN::layer::layer(int neurons){
     for(auto i = 0; i < neurons; ++i){

@@ -3,6 +3,17 @@ project(Genetic_Neural_Network)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Genetic_Neural_Network src/main.cpp include/network.hpp src/neuron.cpp include/neuron.hpp include/agent.hpp src/layer.cpp include/layer.hpp test.cpp test.hpp)
+set(SOURCES
+        src/layer.cpp
+        src/neuron.cpp)
 
-#add_library(Genetic_Neural_Network include/network.hpp src/neuron.cpp include/neuron.hpp include/agent.hpp src/layer.cpp include/layer.hpp)
+set(INCLUDES
+        GNN/include/agent.hpp
+        GNN/include/network.hpp
+        GNN/include/layer.hpp
+        GNN/include/neuron.hpp)
+
+add_executable(Genetic_Neural_Network ${SOURCES} ${INCLUDES} src/main.cpp test.cpp test.hpp)
+
+#add_library(Genetic_Neural_Network STATIC ${INCLUDES} ${SOURCES})
+#set_target_properties(Genetic_Neural_Network PROPERTIES LINKER_LANGUAGE CXX)
