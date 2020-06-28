@@ -9,6 +9,7 @@ namespace GNN{
     class agent{
     public:
         explicit agent(std::vector<T>* input){
+            static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "Must be integral or floating point type"); // Helps to avoid bad types being used with the template
             for(auto i = 0; i < maxPop; ++i){
                 generation.emplace_back(network<T>(input)); // gives agent a full generation of networks to compare fitness
             }
@@ -25,7 +26,7 @@ namespace GNN{
             });
         } // order networkVec in descending order of fitness Run for offspring AND parents together to ensure no regression
     
-        void cullPopulation(){
+        void cullHalfPop(){
             sortFittest();
             generation.erase(generation.begin() + (maxPop / 2), generation.end()); // removes half of the networks with the lowest fitness.
         }
