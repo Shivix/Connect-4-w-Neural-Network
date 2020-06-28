@@ -6,7 +6,7 @@
 namespace GNN{
     static std::random_device randomDevice;
     static std::mt19937 engine(randomDevice());
-    inline std::uniform_real_distribution<float> weightDistribution(-1, 1.0);
+    static std::uniform_real_distribution<float> weightDistribution(-1, 1.0); // calling as static gives less overhead
     
     class neuron{
     public:
