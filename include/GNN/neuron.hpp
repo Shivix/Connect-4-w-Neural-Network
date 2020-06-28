@@ -9,9 +9,17 @@ namespace GNN{
 
     class neuron{
     public:
-        explicit neuron(int);
-        neuron(const neuron&);
-        ~neuron();
+        explicit neuron(int connections){
+            static std::uniform_real_distribution<float> randomDistribution(-1, 1.0);
+            connectionVec.resize(connections);
+            int inputIter = -1;
+            for(auto&& i: connectionVec){
+                i.weight = randomDistribution(GNN::engine);
+                i.input = ++inputIter;
+            }
+        }
+        neuron(const neuron &neuron) = default;
+        ~neuron()= default;
     
     
     public:
@@ -20,16 +28,25 @@ namespace GNN{
             float weight;
             int input;
         };
-        std::vector<connection> getConnectionVec();
+        std::vector<connection> getConnectionVec(){
+            return connectionVec;
+        }
         template <typename charT, typename traits>
         friend std::basic_ostream<charT,traits>& operator<<(std::basic_ostream<charT,traits>& os, const GNN::neuron::connection& connection){// makes the content of a neuron easier to output.
             os << "Weight:" << connection.weight << "from:" << connection.input << "neuron\n";
             return os;
         }
-        void sigmoid();
-        void tanh() const;
+        void sigmoid() { // runs when a neuron is fed from all previous neurons
+            value = value / (1 + (std::abs(value)));
+        }
+        void tanh() const { // runs when a neuron is fed from all previous neurons
+            std::tanh(value);
+        }
+
         typedef void (*func)(float a);
-        void activation(func) const;
+        void activation(func activationFunc) const{
+            activationFunc(value);
+        }
         
     private:
         float bias = 0;

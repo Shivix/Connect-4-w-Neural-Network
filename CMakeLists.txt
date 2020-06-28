@@ -3,10 +3,6 @@ project(Genetic_Neural_Network)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCES
-        src/layer.cpp
-        src/neuron.cpp)
-
 set(INCLUDES
         include/GNN/agent.hpp
         include/GNN/network.hpp

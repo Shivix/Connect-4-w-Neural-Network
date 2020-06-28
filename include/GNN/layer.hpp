@@ -7,10 +7,22 @@
 namespace GNN{
     class layer{
     public:
-        explicit layer(int);
-        ~layer();
+        explicit layer(int neurons){
+            for(auto i = 0; i < neurons; ++i){
+                neuronVec.emplace_back(GNN::neuron(neurons));
+            }
+        }
+        ~layer()= default;
     public:
-        void feed(const layer&);
+        void feed(const layer& prevLayer){
+            for(auto&& i: this->neuronVec){
+                for(auto&& j: i.getConnectionVec()){
+                    i.value += (j.weight * prevLayer.neuronVec[j.input].value);
+                }
+                i.sigmoid();
+            }
+        }
+
         template<typename T>
         void feed(const std::vector<T>& inputLayer){ // template used to make less restrictive. Restriction currently still exists at higher level
             for(auto&& i: this->neuronVec){
