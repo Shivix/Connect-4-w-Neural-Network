@@ -28,7 +28,7 @@ namespace GNN{
             */
         }
         
-        int fitness = 0;
+        int fitness = -1;
     
         void crossover(const network& mate){ // combine half of the neurons of one network with another
             std::uniform_int_distribution<int> netsizeDistribution(0, NEURONS_PER_LAYER - 1);
@@ -61,8 +61,7 @@ namespace GNN{
             std::uniform_int_distribution<int> connectionDistribution(0, NEURONS_PER_LAYER - 1); // track amount of connections in one layer?
             for(auto i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
                 for(auto j = 0; j < mutatesPerLayer; ++j){
-                    layerVec[i].neuronVec[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(
-                            engine)].weight = weightDistribution(engine);
+                    layerVec[i].neuronVec[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(engine)].weight = weightDistribution(engine);
                 }
             }
         }
