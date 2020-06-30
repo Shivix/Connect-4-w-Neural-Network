@@ -19,11 +19,11 @@ Crossover is a way to have 2 parent networks produce a child network that contai
 neurons.
 
 ## Feed Forward
-This is effectively how a network *makes a decision*. The weight of a connection is multiplied
+This is effectively how a network "makes a decision". The weight of a connection is multiplied
 by the value of the neuron it connects to and the result is added to the value of the current neuron. This
 is repeated for each incoming neuron. The value is then passed through a sigmoid function to ensure
 non-linearity.
 
 # How to use on your own data set
 
-Please refer to the [Wiki](https://github.com/Shivix/Genetic-Neural-Network/wiki)
+Please refer to the [Wiki](https://github.com/Shivix/Genetic-Neural-Network/wiki) (work in progress)
