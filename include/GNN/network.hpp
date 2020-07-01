@@ -70,7 +70,7 @@ namespace GNN{
     private:
         int INPUTSIZE = -1;
         int NEURONS_PER_LAYER = -1;
-        std::vector<T>* inputLayer; // stored as pointer to the source of the input layer to ensure layer is kept up to date
+        std::vector<T>* inputLayer = nullptr; // stored as pointer to the source of the input layer to ensure layer is kept up to date
         float highestOutput(){
             float highestValue = layerVec.back().neuronVec[0].value;
             for(auto&& i: layerVec.back().neuronVec){

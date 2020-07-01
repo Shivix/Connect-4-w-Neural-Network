@@ -48,7 +48,7 @@ namespace GNN{
             }
         }
     private:
-        std::vector<T>* input;
+        std::vector<T>* input = nullptr;
         int numberOfLayers;
         int neuronsPerLayer;
     };
