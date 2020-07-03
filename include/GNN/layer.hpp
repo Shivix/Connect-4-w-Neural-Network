@@ -8,7 +8,7 @@ namespace GNN{
     public:
         explicit inline layer(int neurons){
             for(auto i = 0; i < neurons; ++i){
-                neuronVec.emplace_back(std::move(neuron(neurons)));
+                neuronVec.emplace_back(neuron(neurons));
             }
         }
         ~layer()= default;
