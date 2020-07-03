@@ -51,7 +51,7 @@ namespace GNN{
         }
         float feedForward(){
             layerVec[0].feed(*inputLayer);
-            for(auto i = 1; i < layerVec.size(); ++i){
+            for(size_t i = 1; i < layerVec.size(); ++i){
                 layerVec[i].feed(layerVec[i - 1]);
             }
             return highestOutput();
@@ -59,7 +59,7 @@ namespace GNN{
         void mutate(int mutatesPerLayer){
             std::uniform_int_distribution<int> neuronDistribution(0, (NEURONS_PER_LAYER - 1));
             std::uniform_int_distribution<int> connectionDistribution(0, NEURONS_PER_LAYER - 1); // track amount of connections in one layer?
-            for(auto i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
+            for(size_t i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
                 for(auto j = 0; j < mutatesPerLayer; ++j){
                     layerVec[i].neuronVec[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(engine)].weight = weightDistribution(engine);
                 }
