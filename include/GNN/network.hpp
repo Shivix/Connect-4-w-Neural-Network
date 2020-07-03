@@ -19,7 +19,6 @@ namespace GNN{
             }
             layerVec.emplace_back(layer(neuronsPerLayer));
             NEURONS_PER_LAYER = neuronsPerLayer;
-            INPUTSIZE = inputLayer->size();
         }
         ~network(){
             /*for(auto&& i : layerVec){ // ensure heap allocated memory is deleted once the object is out of scope
@@ -71,7 +70,6 @@ namespace GNN{
         std::vector<layer> layerVec = {}; // contains hidden layers and output layer.
         
     private:
-        int INPUTSIZE = -1;
         int NEURONS_PER_LAYER = -1;
         std::vector<T>* inputLayer = nullptr; // stored as pointer to the source of the input layer to ensure input layer is kept up to date
     };
