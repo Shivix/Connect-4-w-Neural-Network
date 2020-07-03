@@ -9,10 +9,10 @@ namespace GNN{
     class GenNet{
     public:
         explicit inline GenNet(std::vector<T>* input, int numberOfLayers, int neuronsPerLayer, int maxPop):
+        maxPop(maxPop),
         input(input),
         numberOfLayers(numberOfLayers),
-        neuronsPerLayer(neuronsPerLayer),
-        maxPop(maxPop)
+        neuronsPerLayer(neuronsPerLayer)
         {
             static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "Must be integral or floating point type"); // Helps to avoid bad types being used with the template
             for(auto i = 0; i < maxPop; ++i){

@@ -21,8 +21,8 @@ namespace GNN{
         neuron(const neuron& neuron) = default;
         neuron(neuron&& neuron) noexcept:
             value(std::move(neuron.value)),
-            connectionVec(std::exchange(this->connectionVec, neuron.connectionVec)),
-            bias(std::move(neuron.bias))
+            bias(std::move(neuron.bias)),
+            connectionVec(std::exchange(this->connectionVec, neuron.connectionVec))
         {};
         ~neuron()= default;
         neuron& operator = (const neuron& neuron) = default;
@@ -60,7 +60,7 @@ namespace GNN{
         
     private:
         float bias = 0;
-        std::vector<connection> connectionVec;
+        std::vector<connection> connectionVec = {};
     };
 }
 
