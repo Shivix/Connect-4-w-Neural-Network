@@ -43,7 +43,7 @@ namespace GNN{
         void activation(function activationFunc) const{ // can allow the library user to provide their own nonlinear function
             activationFunc(value);
         }
-        inline auto getConnectionVec() -> std::vector<connection>& { // provides better encapsulation since connectionVec should never be edited outside of the class
+        inline auto getConnectionVec() const{ // provides better encapsulation since connectionVec should never be edited outside of the class
             return connectionVec;
         }
         void sigmoid() { // runs when a neuron is fed from all previous neurons
