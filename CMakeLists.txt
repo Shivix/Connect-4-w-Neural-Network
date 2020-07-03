@@ -9,7 +9,7 @@ set(INCLUDES
         include/GNN/layer.hpp
         include/GNN/neuron.hpp)
 
-#add_compile_options(-ftime-report)
+add_compile_options(-Wall)
 
 add_executable(Genetic_Neural_Network ${INCLUDES} src/main.cpp test.cpp test.hpp)
 
