@@ -19,7 +19,7 @@ namespace GNN{
                 generation.emplace_back(network<T>(input, numberOfLayers, neuronsPerLayer)); // gives GenNet a full generation of networks to compare fitness
             }
         }
-        ~GenNet()= default;
+        
         std::vector<network<T>> generation;
 
         void cullAndReplacePop(int numToCull){ // deletes x amount of networks and replaces with new ones with random weights (helps to maintain a varied population)

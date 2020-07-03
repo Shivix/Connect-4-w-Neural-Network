@@ -11,7 +11,6 @@ namespace GNN{
                 neuronVec.emplace_back(neuron(neurons));
             }
         }
-        ~layer()= default;
     public:
         void feed(const layer& prevLayer){
             for(auto&& i: this->neuronVec){

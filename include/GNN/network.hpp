@@ -21,7 +21,6 @@ namespace GNN{
             }
             layerVec.emplace_back(layer(neuronsPerLayer)); // adds the output layer
         }
-        ~network() = default;
         
         int fitness = -1;
     
