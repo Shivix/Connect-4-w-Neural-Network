@@ -22,15 +22,23 @@ namespace GNN{
         ~GenNet()= default;
         std::vector<network<T>> generation;
 
-        void cullAndReplacePop(int numToCull){
+        void cullAndReplacePop(int numToCull){ // deletes x amount of networks and replaces with new ones with random weights (helps to maintain a varied population)
             sortFittest();
-            for(auto i = generation.size() - numToCull; i < generation.size(); ++i){// removes half of the networks with the lowest fitness.
+            for(auto i = generation.size() - numToCull; i < generation.size(); ++i){
                 generation.erase(generation.begin() + i);
                 generation.emplace_back(network<T>(input, numberOfLayers, neuronsPerLayer));
             }
         }
+
+        void crossoverWithFittest(){ // replaces half of the neurons of each network with the fittest network's
+            sortFittest();
+            for(size_t i = 1; i < generation.size(); ++i){
+                generation[0].crossover(generation[i]);
+            }
+        }
+
     protected:
-        int maxPop = 10;
+        int maxPop;
         void sortFittest(){ // find fittest networks to keep
             if(generation[0].fitness == -1){
                 std::cout << "Fitness not set" << std::endl;
@@ -40,12 +48,6 @@ namespace GNN{
                 return a.fitness > b.fitness;
             });
         } // order networkVec in descending order of fitness Run for offspring AND parents together to ensure no regression
-        void crossoverFittest(){
-            sortFittest();
-            for(auto i = 1; i < generation.size(); ++i){
-                generation[0].crossover(generation[i]);
-            }
-        }
     private:
         std::vector<T>* input = nullptr;
         int numberOfLayers;

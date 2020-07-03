@@ -10,31 +10,27 @@ namespace GNN{
     template<typename T>
     class network{
     public:
-        explicit inline network(std::vector<T>* inputLayer, int numberOfLayers, int neuronsPerLayer){
-            this->inputLayer = inputLayer;
+        explicit inline network(std::vector<T>* inputLayer, int numberOfLayers, int neuronsPerLayer):
+        neuronsPerLayer(neuronsPerLayer),
+        inputLayer(inputLayer)
+        {
             layerVec.reserve(numberOfLayers);
-            layerVec.emplace_back(layer(inputLayer->size()));
+            layerVec.emplace_back(layer(inputLayer->size())); // adds input layer
             for(auto i = 1; i < numberOfLayers - 2; ++i){
-                layerVec.emplace_back(layer(neuronsPerLayer));
+                layerVec.emplace_back(layer(neuronsPerLayer)); // adds x amount of hidden layers
             }
-            layerVec.emplace_back(layer(neuronsPerLayer));
-            NEURONS_PER_LAYER = neuronsPerLayer;
+            layerVec.emplace_back(layer(neuronsPerLayer)); // adds the output layer
         }
-        ~network(){
-            /*for(auto&& i : layerVec){ // ensure heap allocated memory is deleted once the object is out of scope
-                delete i;
-            }
-            */
-        }
+        ~network() = default;
         
         int fitness = -1;
     
         void crossover(const network& mate){ // combine half of the neurons of one network with another
-            std::uniform_int_distribution<int> netsizeDistribution(0, NEURONS_PER_LAYER - 1);
+            std::uniform_int_distribution<int> netsizeDistribution(0, neuronsPerLayer - 1);
             int neuronToCrossover;
-            for(auto i = 0; i < this->layerVec.size(); ++i){ // this will often copy over a neuron that has already been copied meaning the network that calls the function will have the dominant genome (temp)
+            for(size_t i = 1; i < layerVec.size(); ++i){ // this will often copy over a neuron that has already been copied meaning the network that calls the function will have the dominant genome (temp)
                 neuronToCrossover = netsizeDistribution(engine);
-                this->layerVec[i].neuronVec[neuronToCrossover] = mate.layerVec[i].neuronVec[neuronToCrossover];
+                this->layerVec[i].getNeuronVec()[neuronToCrossover] = mate.layerVec[i].getNeuronVec()[neuronToCrossover];
             }
         }
         void drawNetwork(){ // gives visual feedback for test purposes.
@@ -59,8 +55,8 @@ namespace GNN{
             std::sort(outputLayer.rbegin(), outputLayer.rend());
         }
         void mutate(int mutatesPerLayer){
-            std::uniform_int_distribution<int> neuronDistribution(0, (NEURONS_PER_LAYER - 1));
-            std::uniform_int_distribution<int> connectionDistribution(0, NEURONS_PER_LAYER - 1); // track amount of connections in one layer?
+            std::uniform_int_distribution<int> neuronDistribution(0, (neuronsPerLayer - 1));
+            std::uniform_int_distribution<int> connectionDistribution(0, neuronsPerLayer - 1); // track amount of connections in one layer?
             for(size_t i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
                 for(auto j = 0; j < mutatesPerLayer; ++j){
                     layerVec[i].getNeuronVec()[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(engine)].weight = weightDistribution(engine);
@@ -70,7 +66,7 @@ namespace GNN{
         std::vector<layer> layerVec = {}; // contains hidden layers and output layer.
         
     private:
-        int NEURONS_PER_LAYER = -1;
+        int neuronsPerLayer = -1;
         std::vector<T>* inputLayer = nullptr; // stored as pointer to the source of the input layer to ensure input layer is kept up to date
     };
 }
