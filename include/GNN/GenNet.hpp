@@ -26,7 +26,7 @@ namespace GNN{
         void cullAndReplacePop(int numToCull){
             sortFittest();
             for(auto i = generation.size() - numToCull; i < generation.size(); ++i){// removes half of the networks with the lowest fitness.
-                generation.pop_back();
+                generation.erase(generation.begin() + i);
                 generation.emplace_back(network<T>(input, numberOfLayers, neuronsPerLayer));
             }
         }
