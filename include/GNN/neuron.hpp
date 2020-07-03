@@ -57,7 +57,12 @@ namespace GNN{
             os << "Weight:" << connection.weight << "from:" << connection.input << "neuron\n";
             return os;
         }
-        
+        friend bool operator > (const neuron& neuron1, const neuron& neuron2){
+            return neuron1.value > neuron2.value;
+        }
+        friend bool operator < (const neuron& neuron1, const neuron& neuron2){
+            return neuron1.value < neuron2.value;
+        }
     private:
         float bias = 0;
         std::vector<connection> connectionVec = {};

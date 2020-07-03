@@ -57,9 +57,7 @@ namespace GNN{
         }
         void orderOutput(){ // orders the output layer in descending order of value to easily refer to greatest one.
             auto outputLayer = layerVec.back().getNeuronVec();
-            std::sort(outputLayer.begin(), outputLayer.end(), [](const neuron& neuron1, const neuron& neuron2){ // sorts neuronVec in descending order based on value. Will not disrupt structure of network for feedForward
-                return neuron1.value > neuron2.value;
-            });
+            std::sort(outputLayer.rbegin(), outputLayer.rend());
         }
         void mutate(int mutatesPerLayer){
             std::uniform_int_distribution<int> neuronDistribution(0, (NEURONS_PER_LAYER - 1));
