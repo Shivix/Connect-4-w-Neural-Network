@@ -21,8 +21,7 @@ namespace GNN{
         }
         ~GenNet()= default;
         std::vector<network<T>> generation;
-        virtual void setFitness() = 0; // will dictate how the fitness of each network is decided.
-        
+
         void cullAndReplacePop(int numToCull){
             sortFittest();
             for(auto i = generation.size() - numToCull; i < generation.size(); ++i){// removes half of the networks with the lowest fitness.
