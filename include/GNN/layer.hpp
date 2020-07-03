@@ -21,7 +21,6 @@ namespace GNN{
                 i.sigmoid();
             }
         }
-
         template<typename T>
         void feed(const std::vector<T>& inputLayer){ // template used to make less restrictive. Restriction currently still exists at higher level
             for(auto&& i: this->neuronVec){
@@ -31,6 +30,10 @@ namespace GNN{
                 i.sigmoid();
             }
         }
+        inline auto getNeuronVec() const{ // only getter is public to ensure neuronVec isn't changed outside of this class
+            return neuronVec;
+        }
+    private:
         std::vector<neuron> neuronVec = {};
     };
 }

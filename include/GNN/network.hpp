@@ -41,7 +41,7 @@ namespace GNN{
         void drawNetwork(){ // gives visual feedback for test purposes.
             for(auto&& i: layerVec){
                 std::cout << "=============================================LAYER DIVIDER============================================\n";
-                for(auto&& j: i.neuronVec){
+                for(auto&& j: i.getNeuronVec()){
                     for(auto&& k: j.getConnectionVec()){
                         std::cout << k;
                     }
@@ -49,19 +49,24 @@ namespace GNN{
                 }
             }
         }
-        float feedForward(){
+        void feedForward(){
             layerVec[0].feed(*inputLayer);
             for(size_t i = 1; i < layerVec.size(); ++i){
                 layerVec[i].feed(layerVec[i - 1]);
             }
-            return highestOutput();
+        }
+        void orderOutput(){ // orders the output layer in descending order of value to easily refer to greatest one.
+            auto outputLayer = layerVec.back().getNeuronVec();
+            std::sort(outputLayer.begin(), outputLayer.end(), [](const neuron& neuron1, const neuron& neuron2){ // sorts neuronVec in descending order based on value. Will not disrupt structure of network for feedForward
+                return neuron1.value > neuron2.value;
+            });
         }
         void mutate(int mutatesPerLayer){
             std::uniform_int_distribution<int> neuronDistribution(0, (NEURONS_PER_LAYER - 1));
             std::uniform_int_distribution<int> connectionDistribution(0, NEURONS_PER_LAYER - 1); // track amount of connections in one layer?
             for(size_t i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
                 for(auto j = 0; j < mutatesPerLayer; ++j){
-                    layerVec[i].neuronVec[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(engine)].weight = weightDistribution(engine);
+                    layerVec[i].getNeuronVec()[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(engine)].weight = weightDistribution(engine);
                 }
             }
         }
@@ -70,16 +75,7 @@ namespace GNN{
     private:
         int INPUTSIZE = -1;
         int NEURONS_PER_LAYER = -1;
-        std::vector<T>* inputLayer = nullptr; // stored as pointer to the source of the input layer to ensure layer is kept up to date
-        float highestOutput(){
-            float highestValue = layerVec.back().neuronVec[0].value;
-            for(auto&& i: layerVec.back().neuronVec){
-                if(i.value > highestValue){
-                    highestValue = i.value;
-                }
-            }
-            return highestValue;
-        }
+        std::vector<T>* inputLayer = nullptr; // stored as pointer to the source of the input layer to ensure input layer is kept up to date
     };
 }
 
