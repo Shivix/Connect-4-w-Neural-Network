@@ -10,7 +10,7 @@ namespace GNN{
     template<typename T>
     class network{
     public:
-        explicit inline network(std::vector<T>* inputLayer, int numberOfLayers, int neuronsPerLayer):
+        explicit network(std::vector<T>* inputLayer, int numberOfLayers, int neuronsPerLayer):
         neuronsPerLayer(neuronsPerLayer),
         inputLayer(inputLayer)
         {
