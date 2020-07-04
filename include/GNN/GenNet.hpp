@@ -36,6 +36,12 @@ namespace GNN{
                 generation[0].crossover(generation[i]);
             }
         }
+        
+        void mutateAll(int mutatesPerLayer){
+            for(auto&& i: generation){
+                i.mutate(mutatesPerLayer);
+            }
+        }
 
     protected:
         int maxPop;
