@@ -10,7 +10,7 @@ namespace GNN{
     
     class neuron{
     public:
-        explicit inline neuron(int connections){ // randomly sets all weights and adds the connections to a vector
+        explicit neuron(int connections){ // randomly sets all weights and adds the connections to a vector
             connectionVec.resize(connections);
             int inputIter = -1;
             for(auto&& i: connectionVec){
