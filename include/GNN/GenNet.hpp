@@ -37,7 +37,7 @@ namespace GNN{
             }
         }
         
-        void mutateAll(int mutatesPerLayer){
+        void mutateAll(int mutatesPerLayer){ // replaces x amount of weights with new random weights
             for(auto&& i: generation){
                 i.mutate(mutatesPerLayer);
             }
