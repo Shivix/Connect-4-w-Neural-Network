@@ -8,7 +8,7 @@ namespace GNN{
     template<typename T>
     class GenNet{
     public:
-        explicit inline GenNet(std::vector<T>* input, int numberOfLayers, int neuronsPerLayer, int maxPop):
+        explicit GenNet(std::vector<T>* input, int numberOfLayers, int neuronsPerLayer, int maxPop):
         maxPop(maxPop),
         input(input),
         numberOfLayers(numberOfLayers),
