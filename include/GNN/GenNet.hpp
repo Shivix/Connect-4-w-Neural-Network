@@ -32,7 +32,7 @@ namespace GNN{
 
         void crossoverWithFittest(){ // replaces half of the neurons of each network with the fittest network's
             sortFittest();
-            for(size_t i = 1; i < generation.size(); ++i){
+            for(std::size_t i = 1; i < generation.size(); ++i){
                 generation[0].crossover(generation[i]);
             }
         }
