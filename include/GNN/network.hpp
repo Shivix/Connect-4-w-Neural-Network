@@ -27,7 +27,7 @@ namespace GNN{
         void crossover(const network& mate){ // combine half of the neurons of one network with another
             std::uniform_int_distribution<int> netsizeDistribution(0, neuronsPerLayer - 1);
             int neuronToCrossover;
-            for(size_t i = 1; i < layerVec.size(); ++i){ // this will often copy over a neuron that has already been copied meaning the network that calls the function will have the dominant genome (temp)
+            for(std::size_t i = 1; i < layerVec.size(); ++i){ // this will often copy over a neuron that has already been copied meaning the network that calls the function will have the dominant genome (temp)
                 neuronToCrossover = netsizeDistribution(engine);
                 this->layerVec[i].getNeuronVec()[neuronToCrossover] = mate.layerVec[i].getNeuronVec()[neuronToCrossover];
             }
@@ -45,7 +45,7 @@ namespace GNN{
         }
         void feedForward(){
             layerVec[0].feed(*inputLayer);
-            for(size_t i = 1; i < layerVec.size(); ++i){
+            for(std::size_t i = 1; i < layerVec.size(); ++i){
                 layerVec[i].feed(layerVec[i - 1]);
             }
         }
@@ -56,7 +56,7 @@ namespace GNN{
         void mutate(int mutatesPerLayer){
             std::uniform_int_distribution<int> neuronDistribution(0, (neuronsPerLayer - 1));
             std::uniform_int_distribution<int> connectionDistribution(0, neuronsPerLayer - 1); // track amount of connections in one layer?
-            for(size_t i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
+            for(std::size_t i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
                 for(auto j = 0; j < mutatesPerLayer; ++j){
                     layerVec[i].getNeuronVec()[neuronDistribution(engine)].getConnectionVec()[connectionDistribution(engine)].weight = weightDistribution(engine);
                 }
