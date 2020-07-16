@@ -6,7 +6,7 @@
 namespace GNN{
     class layer{
     public:
-        explicit inline layer(int neurons){
+        explicit layer(int neurons){
             for(auto i = 0; i < neurons; ++i){
                 neuronVec.emplace_back(neuron(neurons));
             }
@@ -29,7 +29,7 @@ namespace GNN{
                 i.sigmoid();
             }
         }
-        inline auto getNeuronVec() const{ // only getter is public to ensure neuronVec isn't changed outside of this class
+        auto getNeuronVec() const{ // only getter is public to ensure neuronVec isn't changed outside of this class
             return neuronVec;
         }
     private:
