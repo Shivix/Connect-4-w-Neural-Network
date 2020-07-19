@@ -1,9 +1,7 @@
 #ifndef CONNECT4_WITH_REINFORCEMENT_LEARNING_NETWORK_HPP
 #define CONNECT4_WITH_REINFORCEMENT_LEARNING_NETWORK_HPP
 
-#include <vector>
 #include <iostream>
-#include <random>
 #include "layer.hpp"
 
 namespace GNN{

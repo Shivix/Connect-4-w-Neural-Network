@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "network.hpp"
 
+
 namespace GNN{
     template<typename T>
     class GenNet{
@@ -56,8 +57,8 @@ namespace GNN{
         } // order networkVec in descending order of fitness Run for offspring AND parents together to ensure no regression
     private:
         std::vector<T>* input = nullptr;
-        int numberOfLayers;
-        int neuronsPerLayer;
+        const int numberOfLayers;
+        const int neuronsPerLayer;
     };
 }
 

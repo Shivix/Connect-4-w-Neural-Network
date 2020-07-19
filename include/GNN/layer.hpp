@@ -29,7 +29,7 @@ namespace GNN{
                 i.sigmoid();
             }
         }
-        auto getNeuronVec() const{ // only getter is public to ensure neuronVec isn't changed outside of this class
+        [[nodiscard]] auto getNeuronVec() const{ // only getter is public to ensure neuronVec isn't changed outside of this class
             return neuronVec;
         }
     private:

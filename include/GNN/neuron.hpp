@@ -18,7 +18,7 @@ namespace GNN{
                 i.input = ++inputIter;
             }
         }
-        neuron(const neuron& neuron) = default;
+        neuron(const neuron& neuron) = default; // rule of zero could easily (and should) be followed here, but I decided to implement the move constructor and assignment myself
         neuron(neuron&& neuron) noexcept:
             value(std::move(neuron.value)),
             bias(std::move(neuron.bias)),
@@ -40,10 +40,10 @@ namespace GNN{
         };
         
         typedef float (*function)(float a);
-        void activation(function activationFunc) const{ // can allow the library user to provide their own nonlinear function
+        void activation(function activationFunc){ // can allow the library user to provide their own nonlinear function
             activationFunc(value);
         }
-        inline auto getConnectionVec() const{ // provides better encapsulation since connectionVec should never be edited outside of the class
+        [[nodiscard]] auto getConnectionVec() const{ // provides better encapsulation since connectionVec should never be edited outside of the class
             return connectionVec;
         }
         void sigmoid() { // runs when a neuron is fed from all previous neurons
