@@ -26,4 +26,4 @@ non-linearity.
 
 # How to use on your own data set
 
-Please refer to the [Wiki](https://github.com/Shivix/Genetic-Neural-Network/wiki) (work in progress)
+Please refer to the [Wiki](https://github.com/Shivix/Genetic-Neural-Network/wiki)
