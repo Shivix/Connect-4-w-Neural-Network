@@ -8,7 +8,7 @@ namespace GNN{
     template<typename T>
     class network{
     public:
-        explicit network(std::vector<T>* inputLayer, int numberOfLayers, int neuronsPerLayer):
+        explicit network(std::vector<T>* inputLayer, const int& numberOfLayers, const int& neuronsPerLayer):
         neuronsPerLayer(neuronsPerLayer),
         inputLayer(inputLayer)
         {
@@ -51,7 +51,7 @@ namespace GNN{
             auto outputLayer = layerVec.back().getNeuronVec();
             std::sort(outputLayer.rbegin(), outputLayer.rend());
         }
-        void mutate(int mutatesPerLayer){
+        void mutate(const int& mutatesPerLayer){
             std::uniform_int_distribution<int> neuronDistribution(0, (neuronsPerLayer - 1));
             std::uniform_int_distribution<int> connectionDistribution(0, neuronsPerLayer - 1); // track amount of connections in one layer?
             for(std::size_t i = 1; i < layerVec.size(); ++i){ // starts at 1 to avoid mutating the input layer
