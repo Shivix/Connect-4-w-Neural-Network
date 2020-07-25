@@ -9,7 +9,7 @@ namespace GNN{
     template<typename T>
     class GenNet{
     public:
-        explicit GenNet(std::vector<T>* input, int numberOfLayers, int neuronsPerLayer, int maxPop):
+        explicit GenNet(std::shared_ptr<std::vector<T>> input, int numberOfLayers, int neuronsPerLayer, int maxPop):
         maxPop(maxPop),
         input(input),
         numberOfLayers(numberOfLayers),
@@ -56,7 +56,7 @@ namespace GNN{
             });
         } // order networkVec in descending order of fitness Run for offspring AND parents together to ensure no regression
     private:
-        std::vector<T>* input = nullptr;
+        std::shared_ptr<std::vector<T>> input = nullptr;
         const int numberOfLayers;
         const int neuronsPerLayer;
     };

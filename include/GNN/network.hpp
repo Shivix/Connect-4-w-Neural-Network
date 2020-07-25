@@ -2,13 +2,14 @@
 #define CONNECT4_WITH_REINFORCEMENT_LEARNING_NETWORK_HPP
 
 #include <iostream>
+#include <memory>
 #include "layer.hpp"
 
 namespace GNN{
     template<typename T>
     class network{
     public:
-        explicit network(std::vector<T>* inputLayer, const int& numberOfLayers, const int& neuronsPerLayer):
+        explicit network(std::shared_ptr<std::vector<T>> inputLayer, const int& numberOfLayers, const int& neuronsPerLayer):
         neuronsPerLayer(neuronsPerLayer),
         inputLayer(inputLayer)
         {
@@ -64,7 +65,7 @@ namespace GNN{
         
     private:
         int neuronsPerLayer = -1;
-        std::vector<T>* inputLayer = nullptr; // stored as pointer to the source of the input layer to ensure input layer is kept up to date
+        std::shared_ptr<std::vector<T>> inputLayer = nullptr; // stored as pointer to the source of the input layer to ensure input layer is kept up to date
     };
 }
 
