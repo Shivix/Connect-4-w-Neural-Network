@@ -39,8 +39,7 @@ namespace GNN{
             int input;
         };
         
-        typedef float (*function)(float a);
-        void activation(function activationFunc){ // can allow the library user to provide their own nonlinear function
+        void activation(std::function<void(float)> activationFunc){ // can allow the library user to provide their own nonlinear function
             activationFunc(value);
         }
         [[nodiscard]] auto getConnectionVec() const{ // provides better encapsulation since connectionVec should never be edited outside of the class
