@@ -56,7 +56,7 @@ namespace GNN{
             });
         } // order networkVec in descending order of fitness Run for offspring AND parents together to ensure no regression
     private:
-        std::shared_ptr<std::vector<T>> input = nullptr; // smart pointer are used here simply to encourage their use. Since their are no calls to new/ make_xxx their is no heap allocated data to manage.
+        std::shared_ptr<std::vector<T>> input = nullptr; // smart pointers are not (entirely) necessary here since their are no calls to new/ make_xxx their is no heap allocated data to manage.
         const int numberOfLayers;
         const int neuronsPerLayer;
     };
