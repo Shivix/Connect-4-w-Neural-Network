@@ -18,19 +18,17 @@ namespace GNN{
                 i.input = ++inputIter;
             }
         }
-        neuron(const neuron& neuron) = default; // rule of zero could easily (and should) be followed here, but I decided to implement the move constructor and assignment myself
-        neuron(neuron&& neuron) noexcept:
-            value(std::move(neuron.value)),
-            bias(std::move(neuron.bias)),
-            connectionVec(std::exchange(this->connectionVec, neuron.connectionVec))
-        {};
+        neuron(const neuron& other) = default; // rule of zero could easily (and should) be followed here, but I decided to implement the move constructor and assignment myself
+        neuron(neuron&& other) noexcept{
+            *this = std::move(other);
+        };
         ~neuron()= default;
-        neuron& operator = (const neuron& neuron) = default;
-        neuron& operator = (neuron&& neuron) noexcept{
-            this->value = std::move(neuron.value);
-            this->connectionVec = std::move(neuron.connectionVec);
-            neuron.connectionVec.clear();
-            this->bias = std::move(neuron.bias);
+        neuron& operator = (const neuron& other) = default;
+        neuron& operator = (neuron&& other) noexcept{
+            this->value = std::move(other.value);
+            this->connectionVec = std::move(other.connectionVec);
+            other.connectionVec.clear();
+            this->bias = std::move(other.bias);
             return *this;}
     public:
         float value = 0.0f;
