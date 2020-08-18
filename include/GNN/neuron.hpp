@@ -2,11 +2,12 @@
 #define CONNECT4_WITH_REINFORCEMENT_LEARNING_NEURON_HPP
 #include <random>
 #include <vector>
+#include <functional>
 
 namespace GNN{
-    static std::random_device randomDevice; // used to seed RNG engine. Will attempt to use hardware entropy if possible
-    static std::mt19937 engine(randomDevice()); // Mersenne-twister engine used for random number generation
-    static std::uniform_real_distribution<float> weightDistribution(-1, 1.0); // calling as static gives less overhead
+    static std::random_device randomDevice; // used to seed RNG engine. Will attempt to use hardware entropy if possible //NOLINT(cert-err58-cpp)
+    static std::mt19937 engine(randomDevice()); // Mersenne-twister engine used for random number generation //NOLINT(cert-err58-cpp)
+    static std::uniform_real_distribution<float> weightDistribution(-1, 1.0); //NOLINT(cert-err58-cpp)
     
     class neuron{
     public:
@@ -25,10 +26,10 @@ namespace GNN{
         ~neuron()= default;
         neuron& operator = (const neuron& other) = default;
         neuron& operator = (neuron&& other) noexcept{
-            this->value = std::move(other.value);
+            this->value = other.value;
             this->connectionVec = std::move(other.connectionVec);
             other.connectionVec.clear();
-            this->bias = std::move(other.bias);
+            this->bias = other.bias;
             return *this;}
     public:
         float value = 0.0f;
@@ -37,7 +38,7 @@ namespace GNN{
             int input;
         };
         
-        void activation(std::function<void(float)> activationFunc){ // can allow the library user to provide their own nonlinear function
+        void activation(const std::function<void(float)>& activationFunc) const{ // can allow the library user to provide their own nonlinear function
             activationFunc(value);
         }
         [[nodiscard]] auto getConnectionVec() const{ // provides better encapsulation since connectionVec should never be edited outside of the class
