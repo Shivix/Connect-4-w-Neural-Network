@@ -15,7 +15,7 @@ namespace GNN{
         numberOfLayers(numberOfLayers),
         neuronsPerLayer(neuronsPerLayer)
         {
-            static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "Must be integral or floating point type"); // Helps to avoid bad types being used with the template
+            static_assert(std::is_arithmetic<T>(), "Must be integral or floating point type"); // Helps to avoid bad types being used with the template
             for(auto i = 0; i < maxPop; ++i){
                 generation.emplace_back(network<T>(input, numberOfLayers, neuronsPerLayer)); // gives GenNet a full generation of networks to compare fitness
             }
