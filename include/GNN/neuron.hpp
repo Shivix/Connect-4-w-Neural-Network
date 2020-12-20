@@ -11,9 +11,9 @@ namespace GNN{
     
     class neuron{
     public:
-        explicit neuron(const int& connections){ // randomly sets all weights and adds the connections to a vector
+        explicit neuron(int connections){ // randomly sets all weights and adds the connections to a vector
             connectionVec.resize(connections);
-            int inputIter = -1;
+            int inputIter{-1};
             for(auto&& i: connectionVec){
                 i.weight = weightDistribution(engine);
                 i.input = ++inputIter;
@@ -59,11 +59,11 @@ namespace GNN{
             return neuron1.value > neuron2.value;
         }
         friend bool operator < (const neuron& neuron1, const neuron& neuron2){
-            return neuron1.value < neuron2.value;
+            return neuron2.value > neuron1.value;
         }
     private:
         float bias = 0;
-        std::vector<connection> connectionVec = {};
+        std::vector<connection> connectionVec{};
     };
 }
 

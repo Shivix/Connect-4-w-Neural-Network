@@ -6,7 +6,7 @@
 namespace GNN{
     class layer{
     public:
-        explicit layer(const int& neurons){
+        explicit layer(int neurons){
             for(auto i = 0; i < neurons; ++i){
                 neuronVec.emplace_back(neuron(neurons));
             }
@@ -33,7 +33,7 @@ namespace GNN{
             return neuronVec;
         }
     private:
-        std::vector<neuron> neuronVec = {};
+        std::vector<neuron> neuronVec{};
     };
 }
 

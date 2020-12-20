@@ -9,7 +9,7 @@ namespace GNN{
     template<typename T>
     class GenNet{
     public:
-        explicit GenNet(std::shared_ptr<std::vector<T>> input, int numberOfLayers, int neuronsPerLayer, int maxPop):
+        explicit GenNet(std::vector<T>* input, int numberOfLayers, int neuronsPerLayer, int maxPop):
         maxPop(maxPop),
         input(input),
         numberOfLayers(numberOfLayers),
@@ -45,7 +45,7 @@ namespace GNN{
         }
 
     protected:
-        int maxPop;
+        const int maxPop;
         void sortFittest(){ // find fittest networks to keep
             if(generation[0].fitness == -1){
                 std::cout << "Fitness not set" << std::endl;
@@ -56,7 +56,7 @@ namespace GNN{
             });
         } // order networkVec in descending order of fitness Run for offspring AND parents together to ensure no regression
     private:
-        std::shared_ptr<std::vector<T>> input = nullptr; // smart pointers are not necessary here since their are no calls to new/ make_xxx their is no ownership/ heap memory to manage.
+        std::vector<T>* input = nullptr; // smart pointers are not necessary here since their are no calls to new/ make_xxx their is no ownership/ heap memory to manage.
         const int numberOfLayers;
         const int neuronsPerLayer;
     };
